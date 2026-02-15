@@ -7,7 +7,7 @@ const Preloader = () => {
       <img
         src="/preloader.gif"
         alt="Loading..."
-        className="w-52 h-52 md:w-76 md:h-76"
+        className="w-40 h-auto md:w-64 md:h-auto"
       />
     </div>
   );
