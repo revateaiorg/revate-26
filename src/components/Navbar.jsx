@@ -31,7 +31,7 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8  font-light gap-2">
-            <a href="" className="hover:text-gray-300 transition-colors">
+            <a href="/" className="hover:text-gray-300 transition-colors">
               Home
             </a>
             <a
@@ -138,7 +138,7 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="md:hidden mt-8 pb-4">
             <div className="flex flex-col space-y-8">
-              <a href="#" className="hover:text-gray-300 transition-colors">
+              <a href="/" className="hover:text-gray-300 transition-colors">
                 Home
               </a>
               <a
