@@ -15,6 +15,8 @@ const Hero = () => {
         muted
         playsInline
         preload="auto"
+        aria-hidden="true"
+        title="Background abstract video"
       />
 
       {/* Dark Overlay */}

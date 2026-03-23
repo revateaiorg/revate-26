@@ -11,7 +11,7 @@ const About = () => {
         {/* Main Content */}
         <div className="relative z-20  h-full">
           <div className="rounded-lg px-4 py-1 bg-white/8 backdrop-blur-lg border border-blue-500/20 w-fit flex items-center justify-center mx-auto mt-10">
-            <h1 className="text-md text-center font-medium">About Us</h1>
+            <h2 className="text-md text-center font-medium">About Us</h2>
           </div>
           <div>
             <BlurText

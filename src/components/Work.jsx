@@ -15,7 +15,7 @@ const Work = () => {
     <section id="works">
       <div className="h-full text-white mt-26 w-full">
         <div className="rounded-lg px-4 py-1 bg-white/8 backdrop-blur-lg border border-blue-500/20 w-fit flex items-center justify-center mx-auto mt-10">
-          <h1 className="text-md text-center font-medium">Our Works</h1>
+          <h2 className="text-md text-center font-medium">Our Works</h2>
         </div>
         <div>
           <BlurText

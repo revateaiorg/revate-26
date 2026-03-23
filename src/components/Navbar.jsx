@@ -24,8 +24,8 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex items-center space-x-2">
             {/* <span className="text-xl font-semibold ml-2">Radison</span> */}
-            <a href="">
-              <img src={Logo} alt="Logo" className="w-26 md:w-32" />
+            <a href="/" aria-label="Revate Homepage">
+              <img src={Logo} alt="Revate Logo" className="w-26 md:w-32" />
             </a>
           </div>
 
@@ -114,6 +114,8 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
+              aria-expanded={isMenuOpen}
+              aria-label="Toggle navigation menu"
               className="flex flex-col justify-center items-center w-8 h-8 space-y-1 focus:outline-none"
             >
               <div

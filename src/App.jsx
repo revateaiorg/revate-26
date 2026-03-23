@@ -26,7 +26,7 @@ const App = () => {
   }, [loading]);
 
   return (
-    <div className="bg-black w-full max-w-screen">
+    <main className="bg-black w-full max-w-screen">
       {loading ? (
         <Preloader />
       ) : (
@@ -41,7 +41,7 @@ const App = () => {
           <Footer />
         </>
       )}
-    </div>
+    </main>
   );
 };
 

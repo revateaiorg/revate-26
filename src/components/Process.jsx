@@ -93,11 +93,11 @@ const ShareIcon = () => (
 
 export default function Process() {
   return (
-    <div className="p-8">
+    <section id="process" className="p-8">
       <div className="rounded-lg px-4 py-1 bg-white/8 backdrop-blur-lg border border-blue-500/20 w-fit flex items-center justify-center mx-auto md:mt-10">
-        <h1 className="text-md text-white text-center font-medium">
+        <h2 className="text-md text-white text-center font-medium">
           Our Process
-        </h1>
+        </h2>
       </div>
       <div>
         <BlurText
@@ -181,30 +181,16 @@ export default function Process() {
                 <div className="flex-col gap-6 animate-loop-y z-20">
                   {/* First set of items */}
                   <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
-                    <img src={Chatgpt} className="w-16" alt="" />
+                    <img src={Chatgpt} className="w-16" alt="ChatGPT logo" />
                   </div>
                   <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
-                    <img src={HubSpotIcon} className="w-16" alt="" />
+                    <img src={HubSpotIcon} className="w-16" alt="HubSpot logo" />
                   </div>
                   <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
-                    <img src={Airtable} className="w-16" alt="" />
+                    <img src={Airtable} className="w-16" alt="Airtable logo" />
                   </div>
                   <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
-                    <img src={Sheets} className="w-16" alt="" />
-                  </div>
-
-                  {/* Duplicate set for seamless loop */}
-                  <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
-                    <img src={Chatgpt} className="w-16" alt="" />
-                  </div>
-                  <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
-                    <img src={HubSpotIcon} className="w-16" alt="" />
-                  </div>
-                  <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
-                    <img src={Airtable} className="w-16" alt="" />
-                  </div>
-                  <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
-                    <img src={Sheets} className="w-16" alt="" />
+                    <img src={Sheets} className="w-16" alt="Google Sheets logo" />
                   </div>
                 </div>
               </div>
@@ -263,6 +249,6 @@ export default function Process() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
