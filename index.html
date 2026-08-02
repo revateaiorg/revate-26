@@ -9,63 +9,114 @@
   <!-- Favicon -->
   <link rel="icon" type="image/webp" href="/revate-fav.png" />
 
-  <!-- Title Tag -->
-  <title>Revate | Web Development & AI Automation Agency</title>
+  <!-- Title Tag — keyword-first -->
+  <title>AI Voice Receptionist & n8n Automation Agency | Revate</title>
 
-  <!-- Meta Description -->
+  <!-- Meta Description — target phrases front-loaded -->
   <meta name="description"
-    content="Revate is a premium web development and AI automation agency that builds intelligent, performance-driven websites and automation systems to grow your business." />
+    content="Revate builds AI voice receptionists that answer calls 24/7, AI appointment booking agents, n8n workflow automation for small businesses, and high-converting websites. Never miss a call or lead again. Book a free strategy call." />
 
-  <!-- Keywords (optional but not impactful today) -->
+  <!-- Keywords -->
   <meta name="keywords"
-    content="web development, AI automation, website design, intelligent systems, Revate, business automation, web agency" />
+    content="AI voice receptionist, AI appointment booking agent, n8n workflow automation, AI phone agent, AI automation for small business, web development agency, AI chatbot, AI automation agency, Revate" />
 
-  <!-- Author (optional) -->
+  <!-- Author -->
   <meta name="author" content="Revate" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Revate | Web Development & AI Automation Agency" />
+  <meta property="og:title" content="AI Voice Receptionist & n8n Automation Agency | Revate" />
   <meta property="og:description"
-    content="Explore our intelligent, growth-focused web and AI solutions for modern businesses." />
-  <meta property="og:image" content="https://revate.com/og-image.webp" />
-  <meta property="og:url" content="https://revate.com" />
+    content="AI voice receptionists, AI appointment booking agents, n8n workflow automation, and conversion-focused websites for small businesses. Never miss a call or lead again." />
+  <meta property="og:image" content="https://revateai.com/og-image.webp" />
+  <meta property="og:url" content="https://revateai.com" />
   <meta property="og:site_name" content="Revate" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Revate | Web Development & AI Automation Agency" />
+  <meta name="twitter:title" content="AI Voice Receptionist & n8n Automation Agency | Revate" />
   <meta name="twitter:description"
-    content="Build smarter with Revate — where websites and AI meet to grow your business." />
-  <meta name="twitter:image" content="https://revate.com/og-image.webp" />
+    content="AI voice receptionists, n8n workflow automation, and high-converting websites for small businesses. Book a free strategy call with Revate." />
+  <meta name="twitter:image" content="https://revateai.com/og-image.webp" />
 
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://revate.com" />
+  <link rel="canonical" href="https://revateai.com" />
 
   <!-- Advanced SEO -->
   <meta name="theme-color" content="#000000" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
-  <!-- Structured Data / JSON-LD -->
+  <!-- Structured Data / JSON-LD — ProfessionalService with service catalog -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["Organization", "ProfessionalService"],
     "name": "Revate",
-    "url": "https://revate.com",
-    "logo": "https://revate.com/revate-fav.png",
-    "image": "https://revate.com/og-image.webp",
-    "description": "Revate is a premium web development and AI automation agency that builds intelligent, performance-driven websites and automation systems.",
+    "alternateName": "RevateAI",
+    "url": "https://revateai.com",
+    "logo": "https://revateai.com/revate-fav.png",
+    "image": "https://revateai.com/og-image.webp",
+    "description": "Revate is an AI automation and web development agency that builds AI voice receptionists, AI appointment booking agents, n8n workflow automations, and high-converting websites for small businesses.",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "US"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "sales",
+      "url": "https://cal.com/pradeep-srinivasan/free-strategy-call",
+      "availableLanguage": "English"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/revate/",
+      "https://x.com/revate",
+      "https://www.instagram.com/revate/",
+      "https://www.facebook.com/people/Revate/pfbid0k3hF5pM4v8hcEQEi2PsAZPrXSMyqaSZr3a7FrUZxa4RoNSCu4zAFAHspwraUoEovl/"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "AI & Web Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI Voice Receptionist",
+            "description": "24/7 AI phone agents that answer calls, handle FAQs, schedule appointments, and forward urgent calls to your team — so you never miss a lead."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "n8n Workflow Automation",
+            "description": "Custom n8n automation workflows that eliminate repetitive tasks, connect your business tools, and let your team focus on growth."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Web Development",
+            "description": "Modern, responsive websites and landing pages designed to convert visitors into customers and grow your business online."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI Chatbot Development",
+            "description": "AI-powered chatbots that engage visitors 24/7, answer FAQs, capture leads, and guide prospects to your services."
+          }
+        }
+      ]
     }
   }
   </script>
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="app"><!--app-html--></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 

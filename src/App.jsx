@@ -12,10 +12,16 @@ import CalBooking from "./components/CalBooking";
 // import ChatbotWidget from "./components/ChatbotWidget";
 
 const App = () => {
-  const [loading, setLoading] = useState(true);
+  // During SSR/SSG pre-render, window is undefined so loading starts as false
+  // so the actual page content is rendered into the static HTML (not the preloader).
+  // On the client after hydration, the preloader activates normally.
+  const [loading, setLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Simulate loading delay (e.g., 2 seconds)
+    // We're now in the browser — activate the preloader on first client paint
+    setMounted(true);
+    setLoading(true);
     const timer = setTimeout(() => setLoading(false), 2000);
     return () => clearTimeout(timer);
   }, []);
@@ -27,7 +33,7 @@ const App = () => {
 
   return (
     <main className="bg-black w-full max-w-screen">
-      {loading ? (
+      {mounted && loading ? (
         <Preloader />
       ) : (
         <>

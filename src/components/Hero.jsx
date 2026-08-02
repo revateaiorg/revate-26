@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "./Navbar";
-import BgVideo from "../assets/hero-bg-vid.mp4";
+import BgVideo from "../assets/hero-bg-vid.webm";
 import BlurText from "./BlurText";
 
 const Hero = () => {

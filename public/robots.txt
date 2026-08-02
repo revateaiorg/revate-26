@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://revate.com/sitemap.xml
+Sitemap: https://revateai.com/sitemap.xml

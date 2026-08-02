@@ -33,7 +33,7 @@ const About = () => {
               <div className="absolute  -inset-px bg-[#3B82F6]   rounded-xl blur group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt bg-gradient-to-r"></div>
 
               <a
-                href="https://calendly.com/nexglimpse/new-meeting"
+                href="https://cal.com/pradeep-srinivasan/free-strategy-call"
                 className="text-sm md:text-lg cursor-pointer relative inline-flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 duration-200  bg-[#3B82F6] hover:bg-[#2563EB]  text-white px-6 py-3 rounded-lg "
               >
                 Book A 15-Min Call

@@ -10,12 +10,21 @@ import Tksm from "../assets/tksm.webp";
 const Marquee = () => {
   // Sample images - replace with your actual image URLs
   const images = [Tbtp, interior, Kisi, Zocor, Travista, Pkm, Tksm];
+  const imageLabels = [
+    "The Bunny Teeth Photography portfolio",
+    "Interior design website",
+    "KISI Fitness Studio website",
+    "Zocor project",
+    "Travista travel platform",
+    "PKM Catering Services website",
+    "TKSM Charitable Trust website",
+  ];
 
   return (
-    <div className=" pt-8 overflow-hidden mt-10">
-      <div className="flex whitespace-nowrap animate-marquee">
+    <div className="pt-8 overflow-hidden mt-10">
+      <div className="flex whitespace-nowrap marquee-scroll">
         {/* First set of images */}
-        <div className="flex gap-6 md:gap-8">
+        <div className="flex gap-6 md:gap-8 flex-shrink-0">
           {images.map((img, index) => (
             <div
               key={`first-${index}`}
@@ -23,7 +32,7 @@ const Marquee = () => {
             >
               <img
                 src={img}
-                alt={`Image ${index + 1}`}
+                alt={imageLabels[index]}
                 className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
               />
             </div>
@@ -31,7 +40,7 @@ const Marquee = () => {
         </div>
 
         {/* Duplicate set for seamless loop */}
-        <div className="flex gap-6 ml-6">
+        <div className="flex gap-6 ml-6 flex-shrink-0">
           {images.map((img, index) => (
             <div
               key={`second-${index}`}
@@ -39,7 +48,7 @@ const Marquee = () => {
             >
               <img
                 src={img}
-                alt={`Image ${index + 1}`}
+                alt={imageLabels[index]}
                 className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
               />
             </div>
@@ -47,7 +56,7 @@ const Marquee = () => {
         </div>
 
         {/* Third set for extra smoothness */}
-        <div className="flex gap-6 ml-6">
+        <div className="flex gap-6 ml-6 flex-shrink-0">
           {images.map((img, index) => (
             <div
               key={`third-${index}`}
@@ -55,43 +64,13 @@ const Marquee = () => {
             >
               <img
                 src={img}
-                alt={`Image ${index + 1}`}
+                alt={imageLabels[index]}
                 className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
               />
             </div>
           ))}
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-35%);
-          }
-        }
-
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-        }
-
-        /* Faster speed for mobile screens */
-        @media (max-width: 768px) {
-          .animate-marquee {
-            animation-duration: 30s;
-          }
-          @keyframes marquee {
-            0% {
-              transform: translateX(0);
-            }
-            100% {
-              transform: translateX(-170%);
-            }
-          }
-        }
-      `}</style>
     </div>
   );
 };

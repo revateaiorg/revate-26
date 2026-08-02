@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { Play, Pause, SkipBack, SkipForward } from "lucide-react";
 
 export function AudioPlayer({ audioSrc }) {
@@ -8,11 +8,13 @@ export function AudioPlayer({ audioSrc }) {
   const audioRef = useRef(null);
   const SKIP_AMOUNT = 5; // 5 seconds
 
-  // Generate random heights for waveform bars
-  const waveformBars = Array.from(
-    { length: 30 },
-    () => Math.floor(Math.random() * 60) + 20
-  );
+  // Use deterministic heights to avoid SSG/hydration mismatches from Math.random()
+  const waveformBars = useMemo(() => {
+    return Array.from({ length: 30 }, (_, i) => {
+      // Deterministic pattern based on index: creates a natural waveform shape
+      return 20 + Math.round(Math.abs(Math.sin(i * 0.7) * 50) + Math.cos(i * 1.3) * 10 + 20);
+    });
+  }, []);
 
   useEffect(() => {
     const audio = audioRef.current;
