@@ -1,5 +1,5 @@
 /**
- * prerender.js — Vite SSG Pre-rendering Script for Revate
+ * prerender.js — Vite SSG Pre-rendering Script for Revate AI
  *
  * Run this after `vite build` to inject pre-rendered HTML into dist/index.html.
  * Usage: node prerender.js

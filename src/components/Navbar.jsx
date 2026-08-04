@@ -24,8 +24,8 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex items-center space-x-2">
             {/* <span className="text-xl font-semibold ml-2">Radison</span> */}
-            <a href="/" aria-label="Revate Homepage">
-              <img src={Logo} alt="Revate Logo" className="w-26 md:w-32" />
+            <a href="/" aria-label="Revate AI Homepage">
+              <img src={Logo} alt="Revate AI Logo" className="w-26 md:w-32" />
             </a>
           </div>
 

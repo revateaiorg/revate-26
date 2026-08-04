@@ -17,7 +17,7 @@ const Footer = () => {
                   <div className="w-3 h-3 bg-white rounded-sm"></div>
                 </div>
               </div> */}
-              <img src={Logo} alt="Revate Logo" className="w-40" />
+              <img src={Logo} alt="Revate AI Logo" className="w-40" />
             </div>
 
             {/* Description */}
@@ -30,14 +30,14 @@ const Footer = () => {
             <div className="flex space-x-4">
               <a
                 href="https://www.linkedin.com/company/revate/"
-                aria-label="Revate LinkedIn Profile"
+                aria-label="Revate AI LinkedIn Profile"
                 className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors duration-200 hover:scale-105 transform"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
               <a
                 href="https://x.com/revate"
-                aria-label="Revate X Profile"
+                aria-label="Revate AI X Profile"
                 className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors duration-200 hover:scale-105 transform"
               >
                 <img
@@ -46,15 +46,15 @@ const Footer = () => {
                 />
               </a>
               <a
-                href="https://www.instagram.com/revate/"
-                aria-label="Revate Instagram Profile"
+                href="https://www.instagram.com/revateai/"
+                aria-label="Revate AI Instagram Profile"
                 className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors duration-200 hover:scale-105 transform"
               >
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href="https://www.facebook.com/people/Revate/pfbid0k3hF5pM4v8hcEQEi2PsAZPrXSMyqaSZr3a7FrUZxa4RoNSCu4zAFAHspwraUoEovl/?rdid=2TLCPjxVXXhRydsk&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18yNAer5CX%2F"
-                aria-label="Revate Facebook Profile"
+                href="https://www.facebook.com/people/Revate-AI/pfbid0k3hF5pM4v8hcEQEi2PsAZPrXSMyqaSZr3a7FrUZxa4RoNSCu4zAFAHspwraUoEovl/?rdid=2TLCPjxVXXhRydsk&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18yNAer5CX%2F"
+                aria-label="Revate AI Facebook Profile"
                 className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors duration-200 hover:scale-105 transform"
               >
                 <Facebook className="w-5 h-5" />
