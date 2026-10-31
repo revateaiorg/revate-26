@@ -12,7 +12,7 @@ export default function CalBooking() {
     })();
   }, []);
   return (
-    <section>
+    <section id="contact">
       <div className="h-full text-white mt-16 w-full">
         {/* <div className="rounded-lg px-4 py-1 bg-white/8 backdrop-blur-lg border border-orange-400/20 w-fit flex items-center justify-center mx-auto mt-10">
           <h1 className="text-md text-center font-medium">Book Your Slot</h1>

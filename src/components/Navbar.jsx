@@ -19,21 +19,21 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-3 md:top-5 left-0 w-full z-50   px-4 ">
-      <div className="md:max-w-[1200px] mx-auto bg-black/30 backdrop-blur-lg border border-white/20 rounded-2xl text-white px-5 py-3 md:py-4 shadow-lg">
+      <div className="md:max-w-[1300px] mx-auto bg-black/40 backdrop-blur-lg border border-white/15 shadow-lg rounded-2xl text-white px-5 py-3 md:py-4">
         <div className=" flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-2">
             {/* <span className="text-xl font-semibold ml-2">Radison</span> */}
-            <a href="/" aria-label="Revate AI Homepage">
-              <img src={Logo} alt="Revate AI Logo" className="w-26 md:w-32" />
+            <a href="/" aria-label="Revate AI Homepage" target="_blank" rel="noopener noreferrer">
+              <img src={Logo} alt="Revate AI Logo" className="w-30 md:w-35" />
             </a>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8  font-light gap-2">
-            <a href="/" className="hover:text-gray-300 transition-colors">
+            {/* <a href="/" className="hover:text-gray-300 transition-colors" target="_blank" rel="noopener noreferrer">
               Home
-            </a>
+            </a> */}
             <a
               href="#about"
               className="hover:text-gray-300 transition-colors"
@@ -80,6 +80,21 @@ const Navbar = () => {
               Works
             </a>
             <a
+              href="#process"
+              className="hover:text-gray-300 transition-colors"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById("process");
+                if (el) {
+                  const y =
+                    el.getBoundingClientRect().top + window.pageYOffset - 100;
+                  window.scrollTo({ top: y, behavior: "smooth" });
+                }
+              }}
+            >
+              Process
+            </a>
+            <a
               href="#contact"
               className="hover:text-gray-300 transition-colors"
               onClick={(e) => {
@@ -103,6 +118,8 @@ const Navbar = () => {
 
               <a
                 href="https://cal.com/pradeep-srinivasan/free-strategy-call"
+                target="_blank"
+                rel="noopener noreferrer"
                 className=" cursor-pointer relative inline-flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 duration-200  bg-[#3B82F6] hover:bg-[#2563EB]  text-white px-6 py-2 rounded-lg "
               >
                 Get in touch
@@ -138,9 +155,9 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="md:hidden mt-8 pb-4">
             <div className="flex flex-col space-y-8">
-              <a href="/" className="hover:text-gray-300 transition-colors">
+              {/* <a href="/" className="hover:text-gray-300 transition-colors" target="_blank" rel="noopener noreferrer">
                 Home
-              </a>
+              </a> */}
               <a
                 href="#about"
                 className="hover:text-gray-300 transition-colors"
@@ -175,6 +192,17 @@ const Navbar = () => {
               </a>
 
               <a
+                href="#process"
+                className="hover:text-gray-300 transition-colors"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick("process");
+                }}
+              >
+                Process
+              </a>
+
+              <a
                 href="#contact"
                 className="hover:text-gray-300 transition-colors"
                 onClick={(e) => {
@@ -190,6 +218,8 @@ const Navbar = () => {
 
                 <a
                   href="https://cal.com/pradeep-srinivasan/free-strategy-call"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full cursor-pointer relative inline-flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 duration-200  bg-[#3B82F6] hover:bg-[#2563EB]  text-white px-6 py-2 rounded-lg "
                 >
                   Get in touch

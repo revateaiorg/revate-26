@@ -155,7 +155,7 @@ const Services = () => {
                   />
                 </div>
                 <h2 className="text-white text-3xl py-2 font-semibold mb-2">
-                  n8n Workflow Automation
+                  AI Workflow Automation
                 </h2>
                 <p className="text-white/70 mb-4">
                   Streamline your operations with n8n workflow automation that

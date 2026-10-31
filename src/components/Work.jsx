@@ -2,11 +2,11 @@ import React from "react";
 import Tbtp from "../assets/tbtp.webp";
 import { ArrowUpRight } from "lucide-react";
 import Kisi from "../assets/kisi.webp";
-import Pkm from "../assets/pkm.webp";
+import Quickidz from "../assets/quickidz.webp"
+import TwentyOneGram from "../assets/21gram.webp"
 import Tksm from "../assets/tksm.webp";
 import BlurText from "./BlurText";
 import SilverStream from "../assets/SSP.png";
-import PrimeBreeze from "../assets/PBH.png";
 import { AudioPlayer } from "./AudioPlayer";
 import SSPA from "../assets/audio/recording.wav";
 
@@ -153,30 +153,27 @@ const Work = () => {
             {/* Image Section */}
             <div
               className="rounded-3xl w-full md:w-2/5 h-48 md:h-[55vh] border border-gray-900 bg-cover bg-center"
-              style={{ backgroundImage: `url(${Tbtp})` }}
+              style={{ backgroundImage: `url(${Quickidz})` }}
             ></div>
 
             {/* Content Section */}
             <div className="relative w-full md:w-3/5 border border-gray-900 bg-white/5 rounded-3xl p-5 flex flex-col justify-between h-auto md:h-[55vh]">
               <div className="space-y-4">
                 <div className="rounded-lg px-3 py-1 bg-[#3B82F6] backdrop-blur-lg border border-blue-500/20 w-fit">
-                  <h1 className="text-sm md:text-md font-medium">2025</h1>
+                  <h1 className="text-sm md:text-md font-medium">2026</h1>
                 </div>
 
                 <h1 className="text-2xl md:text-4xl font-semibold">
-                  The Bunny Teeth Photography
+                  Quickidz
                 </h1>
 
                 <p className="text-sm md:text-md xl:text-lg text-white/70">
-                  A photography website showcasing a talented photographer's
-                  portfolio, featuring stunning visuals and an intuitive
-                  interface. Includes a high-quality gallery, an about section,
-                  and easy contact options.
+                  Designed and developed a conversion-focused landing page that uses storytelling to connect with parents, highlight key challenges in children's physical development, and guide visitors toward booking a free demo class. Beyond the website, built a custom management system to streamline lead bookings, client management, revenue tracking, staff management, and real-time business insights through a centralized dashboard.
                 </p>
 
                 <div>
                   <a
-                    href="https://www.thebunnyteethphotography.com/"
+                    href="https://www.quickidz.in/"
                     className="w-fit px-3 py-1 bg-white text-black rounded-lg font-medium hover:bg-gray-200 transition-all duration-300 flex items-center gap-1"
                   >
                     Visit Site <ArrowUpRight className="inline" />
@@ -205,32 +202,27 @@ const Work = () => {
             {/* Image Section */}
             <div
               className="rounded-3xl w-full md:w-2/5 h-48 md:h-[55vh] border border-gray-900 bg-cover bg-center"
-              style={{ backgroundImage: `url(${Kisi})` }}
+              style={{ backgroundImage: `url(${TwentyOneGram})` }}
             ></div>
 
             {/* Content Section */}
             <div className="relative w-full md:w-3/5 border border-gray-900 bg-white/5 rounded-3xl p-5 flex flex-col justify-between h-auto md:h-[55vh]">
               <div className="space-y-4">
                 <div className="rounded-lg px-3 py-1 bg-[#3B82F6] backdrop-blur-lg border border-blue-500/20 w-fit">
-                  <h1 className="text-sm md:text-md font-medium">2025</h1>
+                  <h1 className="text-sm md:text-md font-medium">2026</h1>
                 </div>
 
                 <h1 className="text-2xl md:text-4xl font-semibold">
-                  KISI Fitness Studio
+                  21 Gram Films
                 </h1>
 
                 <p className="text-sm md:text-md xl:text-lg text-white/70">
-                  A modern fitness studio website designed to attract and engage
-                  potential clients. It features a sleek design, detailed
-                  service offerings, and an easy-to-use booking system for
-                  classes and personal training sessions. The site is optimized
-                  for both desktop and mobile users, ensuring a seamless
-                  experience across devices.
+                  Designed and developed a visually immersive, interactive landing page that showcases 21 Gram Films' short-form video production, reel shoots, and marketing services. Featuring bold visual storytelling, engaging media, and a premium dark aesthetic with vibrant green accents, the website highlights the agency's creative portfolio while making its services easy to explore and its contact journey seamless.
                 </p>
 
                 <div>
                   <a
-                    href="https://kisifitness.framer.website/"
+                    href="https://21gramfilms.com/"
                     className="w-fit px-3 py-1 bg-white text-black rounded-lg font-medium hover:bg-gray-200 transition-all duration-300 flex items-center gap-1"
                   >
                     Visit Site <ArrowUpRight className="inline" />
@@ -307,14 +299,12 @@ const Work = () => {
           </div> */}
 
           {/* Card 6 */}
-          <div className="w-full backdrop-blur-xl border border-gray-900 bg-white/5 rounded-3xl flex flex-col md:flex-row justify-between items-center px-4 py-5 space-y-4 md:space-y-0 md:space-x-4">
-            {/* Image Section */}
+          {/* <div className="w-full backdrop-blur-xl border border-gray-900 bg-white/5 rounded-3xl flex flex-col md:flex-row justify-between items-center px-4 py-5 space-y-4 md:space-y-0 md:space-x-4">
             <div
               className="rounded-3xl w-full md:w-2/5 h-48 md:h-[55vh] border border-gray-900 bg-cover bg-center"
               style={{ backgroundImage: `url(${Tksm})` }}
             ></div>
 
-            {/* Content Section */}
             <div className="relative w-full md:w-3/5 border border-gray-900 bg-white/5 rounded-3xl p-5 flex flex-col justify-between h-auto md:h-[55vh]">
               <div className="space-y-4">
                 <div className="rounded-lg px-3 py-1 bg-[#3B82F6] backdrop-blur-lg border border-blue-500/20 w-fit">
@@ -343,7 +333,6 @@ const Work = () => {
                 </div>
               </div>
 
-              {/* Tags */}
               <div className="flex flex-wrap gap-3 mt-4">
                 <div className="rounded-lg px-3 py-1 backdrop-blur-lg border border-gray-800 w-fit">
                   <h1 className="text-sm md:text-md font-medium">
@@ -362,7 +351,7 @@ const Work = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

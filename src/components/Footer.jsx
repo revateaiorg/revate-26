@@ -17,7 +17,7 @@ const Footer = () => {
                   <div className="w-3 h-3 bg-white rounded-sm"></div>
                 </div>
               </div> */}
-              <img src={Logo} alt="Revate AI Logo" className="w-40" />
+              <img src={Logo} alt="Revate AI Logo" className="w-48" />
             </div>
 
             {/* Description */}
@@ -210,6 +210,27 @@ const Footer = () => {
               © 2026 RevateAI. All rights reserved.
             </p>
           </div>
+        </div>
+      </div>
+
+      {/* Giant Brand Text */}
+      <div className="w-full overflow-hidden relative" style={{ height: 'clamp(100px, 18vw, 280px)' }}>
+        <div className="absolute bottom-0 left-0 w-full flex items-end justify-center">
+          <span
+            className="font-black uppercase leading-none select-none whitespace-nowrap"
+            style={{
+              fontSize: 'clamp(80px, 20vw, 350px)',
+              letterSpacing: '-0.02em',
+              color: 'white',
+              WebkitTextStroke: '2px rgba(255,255,255,0.15)',
+              textShadow: '0 0 40px rgba(255,255,255,0.03)',
+              transform: 'translateY(25%)',
+              maskImage: 'linear-gradient(to bottom, white 0%, transparent 85%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, white 0%, transparent 85%)',
+            }}
+          >
+            Revate AI
+          </span>
         </div>
       </div>
     </footer>

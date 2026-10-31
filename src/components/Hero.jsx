@@ -42,7 +42,7 @@ const Hero = () => {
             delay={50}
             animateBy="words"
             direction="top"
-            className="text-md md:text-lg text-white/70  w-4/5 md:w-2/5 mb-8 text-center mx-auto"
+            className="text-md md:text-lg text-white/70  w-4/5 md:w-2/5 mb-8 md:mb-12 text-center mx-auto"
           />
           {/* <p className="text-sm md:text-lg text-white/70 w-4/5 md:w-2/5 mb-8">
             Boosting your business growth with intelligent websites and AI
@@ -50,12 +50,16 @@ const Hero = () => {
           </p> */}
 
           <div className="flex gap-4 md:gap-5 text-sm md:text-md z-30">
-            <a
-              href="https://cal.com/pradeep-srinivasan/free-strategy-call"
-              className="bg-white hover:opacity-75 transition-all duration-700 cursor-pointer text-black font-sans-medium px-6 py-3 rounded-lg shadow-lg"
-            >
-              Get Started
-            </a>
+            <div className="relative inline-flex  group">
+              <div className="absolute  -inset-px bg-[#3b83f6b6] rounded-xl blur-sm group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt"></div>
+
+              <a
+                href="https://cal.com/pradeep-srinivasan/free-strategy-call"
+                className="z-1 bg-[#3b83f6d8] hover:opacity-75 transition-all duration-700 cursor-pointer text-md md:text-lg text-white font-sans-medium px-6 py-3 rounded-lg shadow-lg"
+              >
+                Book a 15-min call
+              </a>
+            </div>
             <a
               onClick={(e) => {
                 e.preventDefault();
@@ -66,7 +70,7 @@ const Hero = () => {
                   window.scrollTo({ top: y, behavior: "smooth" });
                 }
               }}
-              className="bg-white/30 hover:opacity-75 transition-all duration-700 cursor-pointer text-white px-6 py-3 rounded-lg shadow-lg"
+              className="bg-white hover:opacity-75 transition-all duration-700 cursor-pointer text-black text-md md:text-lg px-6 py-3 font-sans-medium rounded-lg shadow-lg"
             >
               View Works
             </a>
