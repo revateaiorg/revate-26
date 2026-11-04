@@ -41,10 +41,12 @@ const Contact = () => {
         return "";
 
       case "phone_no":
-        if (!value.trim()) return "Mobile number is required";
-        const phoneRegex = /^[0-9]{7,15}$/;
-        if (!phoneRegex.test(value.replace(/\s/g, "")))
-          return "Please enter a valid mobile number (7-15 digits)";
+        // Phone is optional — only validate format if user typed something
+        if (value.trim()) {
+          const phoneRegex = /^[0-9]{7,15}$/;
+          if (!phoneRegex.test(value.replace(/\s/g, "")))
+            return "Please enter a valid mobile number (7-15 digits)";
+        }
         return "";
 
       case "budget":
@@ -157,16 +159,30 @@ const Contact = () => {
 
     setLoading(true);
 
-    emailjs
-      .sendForm(
-        "service_4e5gui8", // Replace with your EmailJS service ID
-        "template_hp3js8j", // Replace with your EmailJS template ID
-        form.current,
-        "JGnbr0aqmeyL7Oese" // Replace with your EmailJS Public key
-      )
+    // Gather form data explicitly so we control exactly what EmailJS receives
+    const formData = new FormData(form.current);
+    const userEmail = formData.get("email_id") || "";
+    const templateParams = {
+      from_name: formData.get("from_name") || "",
+      last_name: formData.get("last_name") || "",
+      email_id: userEmail,
+      email: userEmail,
+      reply_to: userEmail,
+      to_email: userEmail,
+      phone_no: formData.get("phone_no") || "Not provided",
+      country: formData.get("country") || "Not provided",
+      currency: formData.get("currency") || "",
+      budget: formData.get("budget") || "Not provided",
+      message: formData.get("message") || "",
+    };
+
+    const emailjsOptions = { publicKey: "urpLnZFdquq6gQnnm" };
+
+    // Send auto-reply "thank you" to the lead
+    // TODO: Add second emailjs.send() for owner notification once template is created
+    emailjs.send("service_vnxnr9n", "template_4f39rse", templateParams, emailjsOptions)
       .then(
-        (result) => {
-          console.log(result.text);
+        () => {
           setLoading(false);
           setSuccess(true);
           form.current.reset();
@@ -176,7 +192,7 @@ const Contact = () => {
           setTouched({});
         },
         (error) => {
-          console.log(error.text);
+          console.log("EmailJS error:", error);
           setLoading(false);
           alert("Something went wrong. Try again!");
         }
@@ -324,9 +340,7 @@ const Contact = () => {
 
                 <div className="flex flex-col md:flex-row gap-6">
                   <div className="w-full flex flex-col space-y-2">
-                    <h3>
-                      Mobile Number <span className="text-red-500">*</span>
-                    </h3>
+                    <h3>Mobile Number</h3>
                     <input
                       type="text"
                       name="phone_no"

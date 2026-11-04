@@ -40,14 +40,14 @@ const App = () => {
   }, []);
 
   return (
-    <main className="bg-black w-full max-w-screen">
+    <main className="bg-black w-full max-w-screen grain-overlay">
       <Hero />
       <About />
       <Services />
       <Work />
       <Process />
       <CalBooking />
-      {/* <Contact /> */}
+      <Contact />
       <Footer />
     </main>
   );

@@ -8,7 +8,7 @@ const Hero = () => {
     <div className="relative h-[90vh] md:h-screen w-full overflow-hidden">
       {/* Background Video */}
       <video
-        className="absolute top-0 left-0 w-full h-[100vh] object-cover grayscale brightness-75"
+        className="absolute top-0 left-0 w-full h-[100vh] object-cover brightness-100"
         src={BgVideo}
         autoPlay
         loop
@@ -20,7 +20,7 @@ const Hero = () => {
       />
 
       {/* Dark Overlay */}
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-blue-900/40 via-black/40 to-black"></div>
+      {/* <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-blue-900/40 via-black/40 to-black"></div> */}
 
       {/* Content */}
       <div className="relative h-full w-full ">
@@ -34,12 +34,19 @@ const Hero = () => {
             <p className="font-sans-regular">AI-Powered Web Agency</p>
           </div>
 
-          <h1 className="text-[40px] md:text-[85px] leading-tight px-3 md:w-4/5 font-sans-medium mb-4">
+          {/* <h1 className="text-[40px] md:text-[85px] leading-tight px-3 md:w-4/5 font-sans-medium mb-4">
             Run Your Business on Autopilot with AI That Works 24/7
-          </h1>
+          </h1> */}
+          <BlurText
+            text="Run Your Business on Autopilot with AI That Works 24/7"
+            delay={50}
+            animateBy="words"
+            direction="top"
+            className="text-[40px] md:text-[85px] leading-tight px-3 md:w-4/5 font-sans-medium mb-4"
+          />
           <BlurText
             text=" From answering calls to automating daily tasks, we help your business run smoothly with custom AI systems and websites that convert, helping you save time, cut costs, and grow faster."
-            delay={50}
+            delay={55}
             animateBy="words"
             direction="top"
             className="text-md md:text-lg text-white/70  w-4/5 md:w-2/5 mb-8 md:mb-12 text-center mx-auto"
