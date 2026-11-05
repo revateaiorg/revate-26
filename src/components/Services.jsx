@@ -1,122 +1,54 @@
-import React from "react";
-import WebDev from "../assets/web-dev.png";
-import UiUx from "../assets/uiux.webp";
-import ChatBot from "../assets/chat-bot.webp";
-import VoiceAi from "../assets/voice-ai.png";
-import Automation from "../assets/automation.jpg";
-import BlurText from "./BlurText";
-import SpotlightCard from "./SpotlightCard";
-
-const IMAGE_OUTLINE = {
-  outline: "1px solid rgba(0,0,0,0.08)",
-  outlineOffset: "-1px",
-};
+import { PhoneCall, Workflow, MessageSquare, Code2, PenTool, ArrowUpRight, Activity } from 'lucide-react';
+import SectionHeading from './SectionHeading';
+import { useEffect, useRef } from 'react';
 
 const services = [
-  {
-    title: "AI Voice Receptionist & Appointment Booking Agent",
-    body: "Missed calls mean missed revenue. Our AI voice receptionists answer in real time, respond to FAQs, schedule or manage appointments, and transfer important calls to your team. Available 24/7, they help you save time, cut costs, and turn more callers into paying customers.",
-    image: VoiceAi,
-    alt: "AI voice receptionist answering business calls 24/7",
-    featured: true,
-  },
-  {
-    title: "Web Development",
-    body: "We build modern, responsive websites that look great and drive results, helping your business stand out and grow online.",
-    image: WebDev,
-    alt: "Custom web development and high-converting website design",
-  },
-  {
-    title: "UI/UX Design",
-    body: "We specialize in providing top-notch UI/UX design services aimed at creating intuitive and engaging user experiences.",
-    image: UiUx,
-    alt: "UI/UX design services for intuitive digital experiences",
-  },
-  {
-    title: "AI Chatbots",
-    body: "Boost engagement with AI-powered chatbots that deliver fast, personalized responses 24/7. They handle FAQs, guide visitors to the right services, and capture leads, turning every conversation into a conversion.",
-    image: ChatBot,
-    alt: "AI chatbot for business lead capture and customer engagement",
-  },
-  {
-    title: "AI Workflow Automation",
-    body: "Streamline your operations with n8n workflow automation that saves time, reduces costs, and boosts efficiency. From repetitive tasks to smart workflows, our solutions help your business run smoothly and scale faster.",
-    image: Automation,
-    alt: "n8n workflow automation for small business operations",
-  },
+  { icon: PhoneCall, label: '01 / CONVERSATIONS', title: 'AI voice receptionists', body: 'Answer calls, handle common questions, book appointments, and route conversations to your team. A helpful first response, even outside office hours.', tags: ['Call handling', 'Appointment booking', 'Human handoff'], measure: 'Evaluate call accuracy, booking completion, and handoff quality.' },
+  { icon: Workflow, label: '02 / OPERATIONS', title: 'AI workflow automation', body: 'Connect your CRM, forms, email, and everyday tools with custom n8n workflows. Keep information moving without the repetitive copy and paste.', tags: ['n8n workflows', 'CRM integrations', 'Connected tools'], measure: 'Evaluate time saved, successful runs, and exception handling.' },
+  { icon: MessageSquare, label: '03 / CUSTOMER EXPERIENCE', title: 'AI chatbots', body: 'Help visitors find answers using your business information, capture enquiries, and pass complex questions to your team with useful context.', tags: ['Business knowledge', 'Lead capture', 'Customer support'], measure: 'Evaluate answer quality, lead capture, and escalation accuracy.' },
+  { icon: Code2, label: '04 / DIGITAL PRESENCE', title: 'Custom web development', body: 'Give your business a fast, responsive website with clear content and an intuitive path from first visit to enquiry. Built with search visibility in mind.', tags: ['Business websites', 'Responsive builds', 'Technical SEO'], measure: 'Evaluate page speed, accessibility, and enquiry journeys.' },
+  { icon: PenTool, label: '05 / PRODUCT DESIGN', title: 'UI/UX design', body: 'Turn complex ideas into clear digital experiences. We map user journeys, prototype the important interactions, and design interfaces people can navigate.', tags: ['User journeys', 'Prototypes', 'Design systems'], measure: 'Evaluate usability, task completion, and design consistency.' },
 ];
 
-const Services = () => {
+export default function Services() {
+  const edge = useRef(null);
+  const section = useRef(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    }, { threshold: 0.12 });
+    if (edge.current) observer.observe(edge.current);
+    if (section.current) observer.observe(section.current);
+    return () => observer.disconnect();
+  }, []);
   return (
-    <section id="services" className="px-4 pb-20 md:pb-28">
-      <div className="max-w-7xl mx-auto text-neutral-900">
-        <div className="rounded-full px-4 py-1.5 bg-black/5 border border-black/10 w-fit flex items-center justify-center mx-auto mt-16 md:mt-24">
-          <p className="text-sm text-center font-medium">Our Services</p>
-        </div>
-
-        <div className="mt-6">
-          <BlurText
-            text=" We Don't Just Build Websites."
-            delay={50}
-            animateBy="words"
-            direction="top"
-            className="text-center text-3xl md:text-5xl text-neutral-900 px-5 leading-tight pt-5 mx-auto mt-5"
-          />
-          <BlurText
-            text="We build AI systems that drive your growth."
-            delay={50}
-            animateBy="words"
-            direction="top"
-            className="text-center text-3xl md:text-5xl text-neutral-500 px-5 leading-tight pb-5 mx-auto"
-          />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 mt-12 md:mt-16 items-stretch">
-          {services.map((service) => (
-            <SpotlightCard
-              key={service.title}
-              className={`flex flex-col ${service.featured ? "md:col-span-2" : ""}`}
-              spotlightColor="rgba(59, 130, 246, 0.14)"
-            >
-              <div
-                className={`relative w-full overflow-hidden rounded-2xl bg-neutral-100 ${
-                  service.featured ? "min-h-[240px] lg:min-h-[300px]" : "min-h-[200px]"
-                } flex-1`}
-              >
-                <img
-                  src={service.image}
-                  alt={service.alt}
-                  loading="lazy"
-                  style={IMAGE_OUTLINE}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                />
-              </div>
-              <h3
-                className={`mt-5 font-semibold text-neutral-900 ${
-                  service.featured ? "text-2xl md:text-3xl" : "text-xl md:text-2xl"
-                }`}
-              >
-                {service.title}
-              </h3>
-              <p className="mt-2 text-sm md:text-base leading-relaxed text-neutral-600">
-                {service.body}
-              </p>
-              {service.featured && (
-                <div className="mt-6">
-                  <a
-                    href="https://cal.com/pradeep-srinivasan/free-strategy-call"
-                    className="inline-flex items-center justify-center rounded-lg bg-[#3B82F6] px-6 py-3 text-sm md:text-base font-medium text-white transition-colors hover:bg-[#2563EB] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3B82F6]"
-                  >
-                    Book an appointment
-                  </a>
-                </div>
-              )}
-            </SpotlightCard>
+    <section id="services" ref={section} className="services-section section-space">
+      <div className="site-container">
+        <div className="section-intro"><SectionHeading label="Our services" title="Good on their own." accent="Better, connected." description="From the first customer conversation to the work behind it, we build systems that work together around your business." /><a className="text-link" href="#contact">Find the right fit <ArrowUpRight size={18} /></a></div>
+        <div className="service-network">
+          <div className="network-spine" aria-hidden="true"><span /></div>
+          {services.map(({ icon: Icon, ...service }) => (
+            <article className="service-row" key={service.title}>
+              <div className="service-node" aria-hidden="true"><Icon size={23} strokeWidth={1.5} /></div>
+              <div className="service-name"><p className="micro-label">{service.label}</p><h3>{service.title}</h3></div>
+              <div className="service-detail"><p>{service.body}</p><ul className="service-tags">{service.tags.map(tag => <li key={tag}>{tag}</li>)}</ul><p className="service-evaluation"><Activity size={15} aria-hidden="true" />{service.measure}</p></div>
+              <a className="service-arrow" href="#contact" aria-label={`Discuss ${service.title}`}><ArrowUpRight size={23} /></a>
+            </article>
           ))}
         </div>
+        {/* <div className="evaluation-note"><span className="status-dot" aria-hidden="true" /><p><strong>Build. Test. Improve.</strong> We agree on success criteria with you, test realistic scenarios, and review the results before launch.</p></div> */}
+        <div className="services-finish">
+          <div className="finish-line" aria-hidden="true"><span /></div>
+          <p><span className="status-dot" aria-hidden="true" />Thoughtfully built. Better connected.</p>
+          <div className="finish-line" aria-hidden="true"><span /></div>
+        </div>
+      </div>
+      <div className="services-edge" ref={edge} aria-hidden="true">
+        <div />
       </div>
     </section>
   );
-};
-
-export default Services;
+}

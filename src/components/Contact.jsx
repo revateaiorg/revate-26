@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import BlurText from "./BlurText";
+import SectionHeading from "./SectionHeading";
 import CountrySelector from "./CountrySelector";
 import { Mail, Phone } from "lucide-react";
 import emailjs from "@emailjs/browser";
@@ -212,24 +212,7 @@ const Contact = () => {
   return (
     <section id="contact">
       <div className="h-full text-white mt-26 w-full px-4">
-        {/* Contact Us Button */}
-        <div className="rounded-lg px-4 py-1 bg-white/8 backdrop-blur-lg border border-blue-500/20 w-fit flex items-center justify-center mx-auto mt-10">
-          <h1 className="text-md text-center font-medium">Contact Us</h1>
-        </div>
-        <BlurText
-          text="Have Any Doubts?"
-          delay={50}
-          animateBy="words"
-          direction="top"
-          className="text-center text-2xl md:text-5xl text-white px-5 md:w-4/5 leading-tight pt-5 mx-auto mt-5"
-        />
-        <BlurText
-          text="We are Ready to Help."
-          delay={50}
-          animateBy="words"
-          direction="top"
-          className="text-center text-2xl md:text-5xl text-white/70 px-5 md:w-4/5 leading-tight pb-5 mx-auto "
-        />
+        <SectionHeading dark align="center" label="Contact us" title="Tell us what’s next." accent="We’ll help you build it." description="Share your goals, your challenges, or an idea you want to explore." />
 
         {/* Heading */}
 

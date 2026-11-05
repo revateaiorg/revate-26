@@ -1,34 +1,35 @@
 
 import React from "react";
 import Automation from "../assets/automation.jpg";
+import SectionHeading from "./SectionHeading";
 
 const cards = [
   {
-    label: "Intelligent by Design",
-    lead: "Smarter Business Starts Here.",
-    body: "We bring AI into everyday business operations, helping you work faster, make better decisions, and simplify complex tasks.",
+    label: "Clarity from the Start",
+    lead: "A clear reason for every build.",
+    body: "We map your workflow and agree on priorities before choosing the technology. You know what we are building and why.",
     background: "bg-[#F3EDE6]",
     labelColor: "text-[#79634E]",
   },
   {
     label: "Made for Your Business",
-    lead: "Technology That Fits.",
-    body: "From custom websites to intelligent systems, every solution is designed around your unique business goals.",
+    lead: "Your workflow comes first.",
+    body: "Your tools, team, and customer experience shape the solution. We choose integrations around how your business actually works.",
     background: "bg-[#EAE7F0]",
     labelColor: "text-[#6C6080]",
   },
   {
-    label: "Automation That Works",
-    lead: "Less Manual Work. More Possibilities.",
-    body: "From AI voice receptionists to connected workflows, we automate repetitive tasks and keep your business running smoothly.",
+    label: "Tested with Real Scenarios",
+    lead: "Confidence before launch.",
+    body: "We evaluate responses, workflow behaviour, and handoffs against agreed criteria, so you can review how the system performs.",
     image: Automation,
     span: "md:col-span-2 lg:col-span-2",
     labelColor: "text-white/80",
   },
   {
-    label: "Built to Scale",
-    lead: "Ready for What's Next.",
-    body: "We build scalable digital experiences and automation systems that grow alongside your business.",
+    label: "People Stay in Control",
+    lead: "Automation with a human handoff.",
+    body: "We define what the system should handle and when your team should step in. Clear boundaries keep your customers connected to the right help.",
     background: "bg-[#E8E9E8]",
     labelColor: "text-[#626766]",
     span: "md:col-span-2 lg:col-span-1",
@@ -111,7 +112,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="pt-36 pb-24 md:pt-44 md:pb-32 lg:pt-48"
+      className="section-space"
     >
       <div className="mx-auto max-w-7xl px-5 md:px-6">
 
@@ -124,28 +125,7 @@ const About = () => {
 
           {/* Section heading */}
           <div className="flex flex-col justify-between py-2 md:py-4">
-            <h2 className="
-              max-w-md
-              text-4xl md:text-5xl lg:text-6xl
-              font-semibold tracking-tight
-              leading-[1.05]
-              text-[#292522]
-            ">
-              Why choose Revate{" "}
-              <span className="text-[#3B82F6]">
-                AI?
-              </span>
-            </h2>
-
-            <p className="
-              mt-6 max-w-sm
-              text-base leading-relaxed
-              text-[#716A64]
-            ">
-              We combine intelligent automation and
-              thoughtful technology to make your
-              business faster, smarter, and simpler.
-            </p>
+            <SectionHeading label="Why choose Revate AI?" title="Built on understanding." accent="Made to earn your trust." description="Useful technology starts with your business. We focus on clear scope, connected tools, and systems your team can actually use." />
           </div>
 
           {cards.map((card) => (

@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import LotFerox from "../assets/LotFerox.png"
 import Quickidz from "../assets/quickidz.webp"
 import TwentyOneGram from "../assets/21gram.webp"
-import BlurText from "./BlurText";
+import SectionHeading from "./SectionHeading";
 import SilverStream from "../assets/SSP.png";
 import { AudioPlayer } from "./AudioPlayer";
 import SSPA from "../assets/audio/recording.wav";
@@ -12,25 +12,7 @@ const Work = () => {
   return (
     <section id="works">
       <div className="h-full text-white mt-26 w-full">
-        <div className="rounded-lg px-4 py-1 bg-white/8 backdrop-blur-lg border border-blue-500/20 w-fit flex items-center justify-center mx-auto mt-10">
-          <h2 className="text-md text-center font-medium">Our Works</h2>
-        </div>
-        <div>
-          <BlurText
-            text="Work That Speaks for Itself."
-            delay={50}
-            animateBy="words"
-            direction="top"
-            className="text-center text-2xl md:text-5xl text-white px-5 md:w-4/5 leading-tight pt-5 mx-auto mt-5"
-          />
-          <BlurText
-            text="Backed by strategy. Driven by outcomes."
-            delay={50}
-            animateBy="words"
-            direction="top"
-            className="text-center text-2xl md:text-5xl text-white/70 px-5 md:w-4/5 leading-tight pb-5 mx-auto "
-          />
-        </div>
+        <SectionHeading dark align="center" label="Our works" title="Work that speaks" accent="for itself." description="A selection of the websites and systems we’ve brought to life." />
 
         {/* Tabs */}
         {/* <div className="flex justify-center items-center ">
@@ -68,12 +50,12 @@ const Work = () => {
             <div className="relative w-full md:w-3/5 border border-gray-900 bg-white/5 rounded-3xl p-5 flex flex-col justify-between h-auto md:h-[55vh]">
               <div className="space-y-4">
                 <div className="rounded-lg px-3 py-1 bg-[#3B82F6] backdrop-blur-lg border border-blue-500/20 w-fit">
-                  <h1 className="text-sm md:text-md font-medium">2026</h1>
+                  <h3 className="text-sm md:text-md font-medium">2026</h3>
                 </div>
 
-                <h1 className="text-2xl md:text-4xl font-semibold">
+                <h3 className="text-2xl md:text-4xl font-semibold">
                   Quickidz
-                </h1>
+                </h3>
 
                 <p className="text-sm md:text-md xl:text-lg text-white/70">
                   Designed and developed a conversion-focused landing page that uses storytelling to connect with parents, highlight key challenges in children's physical development, and guide visitors toward booking a free demo class. Beyond the website, built a custom management system to streamline lead bookings, client management, revenue tracking, staff management, and real-time business insights through a centralized dashboard.
@@ -94,12 +76,12 @@ const Work = () => {
               {/* Tags */}
               <div className="flex flex-wrap gap-3 mt-4">
                 <div className="rounded-lg px-3 py-1 backdrop-blur-lg border border-gray-800 w-fit">
-                  <h1 className="text-sm md:text-md font-medium">
+                  <h3 className="text-sm md:text-md font-medium">
                     Web Development
-                  </h1>
+                  </h3>
                 </div>
                 <div className="rounded-lg px-3 py-1 backdrop-blur-lg border border-gray-800 w-fit">
-                  <h1 className="text-sm md:text-md font-medium">CMS</h1>
+                  <h3 className="text-sm md:text-md font-medium">CMS</h3>
                 </div>
               </div>
             </div>
@@ -117,12 +99,12 @@ const Work = () => {
             <div className="relative w-full md:w-3/5 border border-gray-900 bg-white/5 rounded-3xl p-5 flex flex-col justify-between h-auto md:h-[55vh]">
               <div className="space-y-4">
                 <div className="rounded-lg px-3 py-1 bg-[#3B82F6] backdrop-blur-lg border border-blue-500/20 w-fit">
-                  <h1 className="text-sm md:text-md font-medium">2026</h1>
+                  <h3 className="text-sm md:text-md font-medium">2026</h3>
                 </div>
 
-                <h1 className="text-2xl md:text-4xl font-semibold">
+                <h3 className="text-2xl md:text-4xl font-semibold">
                   LotFerox Nuts
-                </h1>
+                </h3>
 
                 <p className="text-sm md:text-md xl:text-lg text-white/70">
                   Designed and developed a premium, visually immersive website for LotFerox Nuts, showcasing its range of flavoured makhana and fox nut products. Built an engaging storytelling experience that takes visitors through the brand's product flavours, health benefits, sourcing, and production process, combining rich product imagery, elegant typography, interactive elements, and a distinctive black-and-gold aesthetic to create a memorable brand experience.                </p>
@@ -142,12 +124,12 @@ const Work = () => {
               {/* Tags */}
               <div className="flex flex-wrap gap-3 mt-4">
                 <div className="rounded-lg px-3 py-1 backdrop-blur-lg border border-gray-800 w-fit">
-                  <h1 className="text-sm md:text-md font-medium">
+                  <h3 className="text-sm md:text-md font-medium">
                     Web Development
-                  </h1>
+                  </h3>
                 </div>
                 <div className="rounded-lg px-3 py-1 backdrop-blur-lg border border-gray-800 w-fit">
-                  <h1 className="text-sm md:text-md font-medium">CMS</h1>
+                  <h3 className="text-sm md:text-md font-medium">CMS</h3>
                 </div>
               </div>
             </div>
@@ -165,12 +147,12 @@ const Work = () => {
             <div className="relative w-full md:w-3/5 border border-gray-900 bg-white/5 rounded-3xl p-5 flex flex-col justify-between h-auto md:h-[55vh]">
               <div className="space-y-4">
                 <div className="rounded-lg px-3 py-1 bg-[#3B82F6] backdrop-blur-lg border border-blue-500/20 w-fit">
-                  <h1 className="text-sm md:text-md font-medium">2026</h1>
+                  <h3 className="text-sm md:text-md font-medium">2026</h3>
                 </div>
 
-                <h1 className="text-2xl md:text-4xl font-semibold">
+                <h3 className="text-2xl md:text-4xl font-semibold">
                   21 Gram Films
-                </h1>
+                </h3>
 
                 <p className="text-sm md:text-md xl:text-lg text-white/70">
                   Designed and developed a visually immersive, interactive landing page that showcases 21 Gram Films' short-form video production, reel shoots, and marketing services. Featuring bold visual storytelling, engaging media, and a premium dark aesthetic with vibrant green accents, the website highlights the agency's creative portfolio while making its services easy to explore and its contact journey seamless.
@@ -189,12 +171,12 @@ const Work = () => {
               {/* Tags */}
               <div className="flex flex-wrap gap-3 mt-4">
                 <div className="rounded-lg px-3 py-1 backdrop-blur-lg border border-gray-800 w-fit">
-                  <h1 className="text-sm md:text-md font-medium">
+                  <h3 className="text-sm md:text-md font-medium">
                     Landing Page
-                  </h1>
+                  </h3>
                 </div>
                 <div className="rounded-lg px-3 py-1 backdrop-blur-lg border border-gray-800 w-fit">
-                  <h1 className="text-sm md:text-md font-medium">CMS</h1>
+                  <h3 className="text-sm md:text-md font-medium">CMS</h3>
                 </div>
               </div>
             </div>
@@ -212,12 +194,12 @@ const Work = () => {
             <div className="relative w-full md:w-3/5 border border-gray-900 bg-white/5 rounded-3xl p-4 md:p-5 flex flex-col justify-between h-auto md:h-[55vh]">
               <div className="space-y-4">
                 <div className="rounded-lg px-3 py-1 bg-[#3B82F6] backdrop-blur-lg border border-blue-500/20 w-fit">
-                  <h1 className="text-sm md:text-md font-medium">2025</h1>
+                  <h3 className="text-sm md:text-md font-medium">2025</h3>
                 </div>
 
-                <h1 className="text-2xl md:text-4xl font-semibold">
+                <h3 className="text-2xl md:text-4xl font-semibold">
                   Silver Stream Plumbing
-                </h1>
+                </h3>
 
                 <p className="text-sm md:text-md xl:text-lg text-white/70">
                   A custom AI Voice Receptionist for Silver Stream Plumbing
@@ -235,14 +217,14 @@ const Work = () => {
               {/* Tags */}
               <div className="flex flex-wrap gap-3 mt-4">
                 <div className="rounded-lg px-3 py-1 backdrop-blur-lg border border-gray-800 w-fit">
-                  <h1 className="text-sm md:text-md font-medium">
+                  <h3 className="text-sm md:text-md font-medium">
                     AI Voice Receptionist
-                  </h1>
+                  </h3>
                 </div>
                 <div className="rounded-lg px-3 py-1 backdrop-blur-lg border border-gray-800 w-fit">
-                  <h1 className="text-sm md:text-md font-medium">
+                  <h3 className="text-sm md:text-md font-medium">
                     AI Automation
-                  </h1>
+                  </h3>
                 </div>
               </div>
             </div>

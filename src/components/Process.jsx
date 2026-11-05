@@ -1,251 +1,128 @@
-import React from "react";
-import BlurText from "./BlurText";
-import Chatgpt from "../assets/chatgpt.png";
-import HubSpotIcon from "../assets/hubspot.png";
-import Airtable from "../assets/airtable.png";
-import Sheets from "../assets/sheets.png";
-import {
-  BarChart,
-  BarChart2Icon,
-  ChartArea,
-  ChartLine,
-  PieChartIcon,
-  TrendingUp,
-} from "lucide-react";
-// Icon components (using simple SVG representations)
-const ListIcon = () => (
-  <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" />
-  </svg>
-);
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Check, Search, Workflow, TrendingUp, Users, Database, MessageSquare, Zap } from 'lucide-react';
+import SectionHeading from './SectionHeading';
 
-const MailIcon = () => (
-  <svg className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-  </svg>
-);
+gsap.registerPlugin(ScrollTrigger);
 
-const CalendarIcon = () => (
-  <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" />
-  </svg>
-);
+const steps = [
+  {
+    label: 'Understand', title: 'Understand your everyday work.',
+    description: 'We map how enquiries, information, and tasks move through your business. Together, we identify repetitive work, missed handoffs, and the best place to start.',
+    points: ['Map your current workflow and tools', 'Find the friction and opportunities', 'Agree on priorities and success criteria'],
+    deliverable: 'Your workflow map & a focused plan', icon: Search,
+  },
+  {
+    label: 'Build', title: 'Build the system that fits.',
+    description: 'We build the website, AI agent, or automation your workflow needs. We connect the right tools, test realistic situations, and show your team how to use the system.',
+    points: ['Design the experience with your team', 'Connect the tools you already use', 'Test real scenarios and human handoffs'],
+    deliverable: 'A working system, tested together', icon: Workflow,
+  },
+  {
+    label: 'Improve', title: 'Measure, refine, and grow.',
+    description: 'After launch, we review the system against the goals agreed with you. We look for failed runs, unanswered questions, or unnecessary steps, then prioritise useful improvements.',
+    points: ['Review reliability and customer experience', 'Compare results with your starting point', 'Prioritise the next improvement together'],
+    deliverable: 'A clear handover & next-step priorities', icon: TrendingUp,
+  },
+];
 
-const FileIcon = () => (
-  <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-8-6z" />
-  </svg>
-);
+const TIMING = { expand: 0.7, gap: 0.15, hscroll: 2.2, contract: 0.7 };
 
-const TodoListIcon = () => (
-  <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-    <rect
-      x="3"
-      y="3"
-      width="18"
-      height="18"
-      rx="2"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    />
-    <line
-      x1="7"
-      y1="8"
-      x2="17"
-      y2="8"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
-    <line
-      x1="7"
-      y1="12"
-      x2="17"
-      y2="12"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
-    <line
-      x1="7"
-      y1="16"
-      x2="17"
-      y2="16"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
-  </svg>
-);
-
-const BooksIcon = () => (
-  <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z" />
-  </svg>
-);
-
-const ShareIcon = () => (
-  <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.15c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
-  </svg>
-);
+function ProcessDiagram({ step }) {
+  return (
+    <div className={`journey-diagram journey-diagram-${step}`} aria-hidden="true">
+      <div className="diagram-caption">{['SEE THE WHOLE PICTURE', 'BRING THE PIECES TOGETHER', 'MAKE PROGRESS VISIBLE'][step]}</div>
+      {step === 0 && <div className="workflow-map"><div className="map-inputs"><span><Users size={18} />Your team</span><span><Database size={18} />Your tools</span><span><MessageSquare size={18} />Your customers</span></div><div className="map-junction"><Search size={26} /><span>A clearer picture</span></div><div className="map-result"><span className="diagram-dot" />The right opportunity</div></div>}
+      {step === 1 && <div className="build-map"><div className="build-center"><Workflow size={32} /><span>Your system</span></div><div className="build-tools">{['Website', 'AI agents', 'Your CRM'].map(item => <span key={item}><Check size={14} />{item}</span>)}</div><p><span className="diagram-dot" />Connected. Tested. Ready.</p></div>}
+      {step === 2 && <div className="growth-map"><div className="growth-bars">{[25, 40, 36, 58, 66, 83, 100].map((height, index) => <span key={index} style={{ height: `${height}%` }} />)}</div><div className="growth-labels"><span>Launch</span><span>Measure</span><span>Improve <TrendingUp size={15} /></span></div><p>Illustrating the improvement cycle</p></div>}
+      <div className="diagram-bottom"><Zap size={13} /> YOUR BUSINESS, BETTER CONNECTED</div>
+    </div>
+  );
+}
 
 export default function Process() {
+  const pinRef = useRef(null);
+  const bgRef = useRef(null);
+  const frameRef = useRef(null);
+  const trackRef = useRef(null);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    const frame = frameRef.current;
+    if (!track || !frame) return;
+
+    const pin = pinRef.current;
+    const bg = bgRef.current;
+    const media = gsap.matchMedia();
+    // Native scrolling remains the baseline on small or short screens.
+    media.add('(min-width: 900px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)', () => {
+      pin.classList.add('is-enhanced');
+      const rest = { w: 0, h: 0 };
+      const measure = () => {
+        rest.w = frame.offsetWidth;
+        rest.h = frame.offsetHeight;
+      };
+      measure();
+
+      const ctx = gsap.context(() => {
+        const timeline = gsap.timeline({
+          defaults: { ease: 'power2.inOut' },
+          scrollTrigger: {
+            trigger: pin,
+            start: 'top top',
+            end: () => '+=' + Math.round(window.innerHeight * 3),
+            pin: true,
+            scrub: 0.6,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+
+
+        timeline
+          .fromTo(
+            bg,
+            { xPercent: -50, yPercent: -50, width: () => rest.w, height: () => rest.h, borderRadius: 28 },
+            { width: () => pin.offsetWidth, height: () => pin.offsetHeight, borderRadius: 0, duration: TIMING.expand, immediateRender: true }
+          )
+          .to(track, { x: () => -(track.scrollWidth - track.clientWidth), ease: 'none', duration: TIMING.hscroll }, `+=${TIMING.gap}`)
+          .to(bg, { width: () => rest.w, height: () => rest.h, borderRadius: 28, duration: TIMING.contract }, `+=${TIMING.gap}`);
+      }, pin);
+
+      const onRefreshInit = () => {
+        measure();
+        gsap.set(bg, { width: rest.w, height: rest.h });
+      };
+      ScrollTrigger.addEventListener('refreshInit', onRefreshInit);
+
+      return () => {
+        ScrollTrigger.removeEventListener('refreshInit', onRefreshInit);
+        ctx.revert();
+        pin.classList.remove('is-enhanced');
+      };
+    });
+    return () => media.revert();
+  }, []);
+
   return (
-    <section id="process" className="p-8">
-      <div className="rounded-lg px-4 py-1 bg-white/8 backdrop-blur-lg border border-blue-500/20 w-fit flex items-center justify-center mx-auto md:mt-10">
-        <h2 className="text-md text-white text-center font-medium">
-          Our Process
-        </h2>
-      </div>
-      <div>
-        <BlurText
-          text="How We Build Your Custom AI System"
-          delay={50}
-          animateBy="words"
-          direction="top"
-          className="text-center text-2xl md:text-5xl text-white px-5 md:w-4/5 leading-tight pt-5 mx-auto mt-5"
-        />
-        <BlurText
-          text="That Actually Works."
-          delay={50}
-          animateBy="words"
-          direction="top"
-          className="text-center text-2xl md:text-5xl text-white/70 px-5 md:w-4/5 leading-tight pb-5 mx-auto "
-        />
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto mt-10">
-        {/* Card 1 */}
-        <div className="relative w-full max-w-sm z-10">
-          <div className="relative bg-gradient-to-b border-neutral-800 bg-neutral-900 rounded-3xl p-8 min-h-[650px] overflow-hidden border">
-            {/* Orange gradient with higher z-index */}
-            <div className="absolute -bottom-40 -left-35 w-[400px] h-[400px] rounded-full blur-3xl opacity-30 bg-gradient-to-r from-blue-500 to-blue-600 z-30" />
-
-            <div className="relative z-10 h-42">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-6">
-                <span className="text-2xl font-bold text-slate-900">1</span>
-              </div>
-              <h3 className="text-[22px] font-semibold text-white mb-2">
-                Share Your Workflow
-              </h3>
-              <p className="text-gray-400 text-lg leading-relaxed mb-12">
-                From lead gen to client onboarding, just share your workflow and
-                the tools you use.
-              </p>
-              {/* Icons container with lower z-index */}
-              <div className="relative w-full h-full z-20">
-                <div className="absolute right-5 -rotate-12 w-30 h-30 rounded-full bg-gradient-to-tr from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 animate-pulse-scale">
-                  <MailIcon />
-                </div>
-                <div className="absolute left-5 top-10 -rotate-12 w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 animate-pulse-scale-delayed-1">
-                  <ListIcon />
-                </div>
-                <div className="absolute left-0 -bottom-25 rotate-12 w-20 h-20 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 animate-pulse-scale-delayed-2">
-                  <CalendarIcon />
-                </div>
-                <div className="absolute right-4 -bottom-20 -rotate-12 w-20 h-20 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 animate-pulse-scale-delayed-3">
-                  <FileIcon />
-                </div>
-                <div className="absolute right-30 -bottom-40 -rotate-12 w-20 h-20 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 animate-pulse-scale-delayed-4">
-                  <TodoListIcon />
-                </div>
-              </div>
-            </div>
-          </div>
+    <section id="process" className="journey-section section-space">
+      <div className="site-container pb-0 mb-0">
+        <div className="section-intro">
+          <SectionHeading dark label="Our process" title="From how you work." accent="To what’s possible." description="Three considered steps. One system that makes sense for your business." />
         </div>
+      </div>
+      <div ref={pinRef} className="process-pin">
+        <div className="process-stage">
+          <div ref={bgRef} className="process-card-bg" aria-hidden="true" />
+          <div ref={frameRef} className="process-frame">
+            <ol className="journey-track" id="process-slides" ref={trackRef} tabIndex={0} aria-label="Our three process steps. Scroll down on desktop, or swipe horizontally on smaller screens.">
+              {steps.map((step, index) => <li className="journey-slide" key={step.label} aria-label={`Step ${index + 1}: ${step.label}`}>
+                <div className="journey-copy"><p className="journey-step-label">STEP 0{index + 1} / {step.label.toUpperCase()}</p><h3>{step.title}</h3><p className="journey-description">{step.description}</p><ul>{step.points.map(point => <li key={point}><Check size={16} />{point}</li>)}</ul><div className="journey-deliverable"><span>WHAT YOU LEAVE WITH</span><p><step.icon size={18} />{step.deliverable}</p></div></div>
+                <ProcessDiagram step={index} />
+              </li>)}
+            </ol>
 
-        {/* Card 2 */}
-        <div className="relative w-full max-w-sm z-10">
-          <div className="relative bg-gradient-to-b border-neutral-800 bg-neutral-900 rounded-3xl p-8 min-h-[650px] h-[650px]  overflow-hidden border">
-            <div className="absolute -bottom-40 -left-35 w-[400px] h-[400px] rounded-full blur-3xl opacity-30 bg-gradient-to-r from-blue-500 to-blue-600 z-30" />
-            <div className="relative z-10">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-6">
-                <span className="text-2xl font-bold text-slate-900">2</span>
-              </div>
-              <h3 className="text-[22px] font-semibold text-white mb-2">
-                We Build the System
-              </h3>
-              <p className="text-gray-400 text-lg leading-relaxed mb-12">
-                We design and set up custom automations that connect your tools
-                with AI—so work happens while you sleep.
-              </p>
-
-              <div className="relative overflow-hidden z-10">
-                {/* Top fade overlay */}
-                <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-neutral-900 to-transparent z-10 pointer-events-none" />
-
-                {/* Bottom fade overlay */}
-                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-neutral-900 to-transparent z-10 pointer-events-none" />
-
-                <div className="flex-col gap-6 animate-loop-y z-20">
-                  {/* First set of items */}
-                  <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
-                    <img src={Chatgpt} className="w-16" alt="ChatGPT logo" />
-                  </div>
-                  <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
-                    <img src={HubSpotIcon} className="w-16" alt="HubSpot logo" />
-                  </div>
-                  <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
-                    <img src={Airtable} className="w-16" alt="Airtable logo" />
-                  </div>
-                  <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
-                    <img src={Sheets} className="w-16" alt="Google Sheets logo" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Card 3 */}
-        <div className="relative w-full max-w-sm">
-          <div className="relative bg-gradient-to-b border-neutral-800 bg-neutral-900 rounded-3xl p-8 min-h-[650px] h-[650px] overflow-hidden border">
-            <div className="absolute -bottom-40 -left-35 w-[400px] h-[400px] rounded-full blur-3xl opacity-30 bg-gradient-to-r from-blue-500 to-blue-600 z-30" />
-            <div className="relative z-10">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-6">
-                <span className="text-2xl font-bold text-slate-900">3</span>
-              </div>
-              <h3 className="text-[22px] font-semibold text-white mb-2">
-                Launch and Take Control
-              </h3>
-              <p className="text-gray-400 text-lg leading-relaxed mb-12">
-                You get a plug-and-play dashboard with a walkthrough to manage
-                everything easily.
-              </p>
-
-              <div className="mt-25">
-                <div className="bg-black w-[400px] h-[250px] rounded-xl p-3 animate-pulse">
-                  <div className="flex space-x-1.5 items-center">
-                    <div className="bg-red-600 w-[12px] h-[12px] rounded-full"></div>
-                    <div className="bg-yellow-600 w-[12px] h-[12px] rounded-full"></div>
-
-                    <div className="bg-green-600 w-[12px] h-[12px] rounded-full"></div>
-                  </div>
-
-                  <div className="flex justify-between gap-4 pt-5">
-                    <div className="w-1/4 h-[50px] rounded-xl bg-gray-800"></div>
-                    <div className="w-1/4 h-[50px] rounded-xl bg-gray-800"></div>
-                    <div className="w-1/4 h-[50px] rounded-xl bg-gray-800"></div>
-                    <div className="w-1/4 h-[50px] rounded-xl bg-gray-800"></div>
-                  </div>
-
-                  <div className="flex h-full pt-3">
-                    <div className="w-3/5 h-3/5 bg-gray-800 rounded-xl flex justify-center items-center">
-                      {/* <TrendingUp className="text-gray-500" size={100} /> */}
-                      <ChartLine className="text-gray-500" size={100} />
-                      {/* <BarChart />
-                      <BarChart2Icon /> */}
-                    </div>
-                    <div className="flex-col w-2/5 h-3/5">
-                      <div className="h-full bg-gray-800 rounded-xl mb-2 ml-3 flex justify-center items-center">
-                        <PieChartIcon className="text-gray-500" size={70} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

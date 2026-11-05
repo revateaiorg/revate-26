@@ -1,91 +1,27 @@
-import React from "react";
-import BgVideo from "../assets/hero-bg-vid.webm";
-import BlurText from "./BlurText";
+import { ArrowUpRight, ArrowDown, Check } from 'lucide-react';
+import { motion as Motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
+import BgVideo from '../assets/hero-bg-vid.webm';
 
-const Hero = () => {
+export default function Hero() {
+  const reduceMotion = useReducedMotion();
+  const { scrollY } = useScroll();
+  const contentY = useTransform(scrollY, [0, 520], reduceMotion ? [0, 0] : [0, -160]);
+  const contentOpacity = useTransform(scrollY, [0, 420], reduceMotion ? [1, 1] : [1, 0]);
   return (
-    <div className="relative h-[90vh] md:h-screen w-full overflow-hidden">
-      {/* Background Video */}
-      <video
-        className="absolute top-0 left-0 w-full h-[100vh] object-cover brightness-100"
-        src={BgVideo}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-        title="Background abstract video"
-      />
-
-      {/* Dark Overlay */}
-      {/* <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-blue-900/40 via-black/40 to-black"></div> */}
-
-      {/* Content */}
-      <div className="relative h-full w-full ">
-        <div className="flex flex-col items-center justify-center h-full text-white text-center px-1">
-          <div className="flex items-center justify-around gap-2 mb-6 font-sans-medium text-[12px] md:text-[16px] rounded-xl px-2 py-2 bg-white/8 backdrop-blur-lg border border-white/20 text-white/80">
-            <div className="bg-[#3B82F6] rounded-sm text-[10px] md:text-[12px] flex items-center justify-center">
-              <p className="px-2 py-1 font-sans-bold text-center">NO. 1</p>
-            </div>
-            <p className="font-sans-regular">AI-Powered Web Agency</p>
-          </div>
-
-          {/* <h1 className="text-[40px] md:text-[85px] leading-tight px-3 md:w-4/5 font-sans-medium mb-4">
-            Run Your Business on Autopilot with AI That Works 24/7
-          </h1> */}
-          <BlurText
-            text="Run Your Business on Autopilot with AI That Works 24/7"
-            delay={50}
-            animateBy="words"
-            direction="top"
-            className="text-[40px] md:text-[85px] leading-tight px-3 md:w-4/5 font-sans-medium mb-4"
-          />
-          <BlurText
-            text=" From answering calls to automating daily tasks, we help your business run smoothly with custom AI systems and websites that convert, helping you save time, cut costs, and grow faster."
-            delay={55}
-            animateBy="words"
-            direction="top"
-            className="text-md md:text-lg text-white/70  w-4/5 md:w-2/5 mb-8 md:mb-12 text-center mx-auto"
-          />
-          {/* <p className="text-sm md:text-lg text-white/70 w-4/5 md:w-2/5 mb-8">
-            Boosting your business growth with intelligent websites and AI
-            automations that maximize efficiency and profitability.
-          </p> */}
-
-          <div className="flex gap-4 md:gap-5 text-sm md:text-md z-30">
-            <div className="relative inline-flex  group">
-              <div className="absolute  -inset-px bg-[#3b83f6b6] rounded-xl blur-sm group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt"></div>
-
-              <a
-                href="https://cal.com/pradeep-srinivasan/free-strategy-call"
-                className="z-1 bg-[#3b83f6d8] hover:opacity-75 transition-all duration-700 cursor-pointer text-md md:text-lg text-white font-sans-medium px-6 py-3 rounded-lg shadow-lg"
-              >
-                Book a 15-min call
-              </a>
-            </div>
-            <a
-              onClick={(e) => {
-                e.preventDefault();
-                const el = document.getElementById("works");
-                if (el) {
-                  const y =
-                    el.getBoundingClientRect().top + window.pageYOffset - 100;
-                  window.scrollTo({ top: y, behavior: "smooth" });
-                }
-              }}
-              className="bg-white hover:opacity-75 transition-all duration-700 cursor-pointer text-black text-md md:text-lg px-6 py-3 font-sans-medium rounded-lg shadow-lg"
-            >
-              View Works
-            </a>
-          </div>
+    <section className="hero-section" aria-labelledby="hero-title">
+      {!reduceMotion && <video className="hero-video" src={BgVideo} autoPlay loop muted playsInline preload="metadata" aria-hidden="true" />}
+      <div className="hero-shade" />
+      <Motion.div className="hero-content" style={{ y: contentY, opacity: contentOpacity }}>
+        <p className="section-eyebrow"><span aria-hidden="true" />AI automation & web development</p>
+        <h1 id="hero-title">Less busywork.<br />More <span>business.</span></h1>
+        <p className="hero-description">Revate AI builds AI voice receptionists, chatbots, n8n workflow automations, and custom websites that help your business respond faster and work smarter.</p>
+        <div className="hero-actions">
+          <a className="primary-link" href="https://cal.com/pradeep-srinivasan/free-strategy-call">Let’s build your next step <ArrowUpRight size={19} /></a>
+          <a className="hero-secondary" href="#services">Explore our services <ArrowDown size={17} /></a>
         </div>
-      </div>
-
-      {/* Bottom Fade Effect */}
-      <div className="absolute bottom-[-10px] left-0 w-full h-64 bg-gradient-to-b from-transparent to-black pointer-events-none z-20"></div>
-    </div>
+        <div className="hero-notes">{['Built around your workflow', 'Connected to your tools', 'Tested before launch'].map(item => <span key={item}><Check size={14} />{item}</span>)}</div>
+      </Motion.div>
+      <Motion.div className="hero-footer" style={{ opacity: contentOpacity }}><span>YOUR BUSINESS. A SMARTER WAY FORWARD.</span><a href="#about">Discover the difference <ArrowDown size={14} /></a></Motion.div>
+    </section>
   );
-};
-
-export default Hero;
+}
