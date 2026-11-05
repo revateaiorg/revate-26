@@ -103,31 +103,22 @@
   animation: spin 8s linear infinite;
 }
 
-/* Marquee animation — moved from styled-jsx in Marquee.jsx (not supported in Vite SSG) */
+/* Marquee animation — two identical sets scroll -50% for a seamless loop */
 @keyframes marquee {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-35%);
+    transform: translateX(-50%);
   }
 }
 
 .marquee-scroll {
-  animation: marquee 30s linear infinite;
+  animation: marquee 40s linear infinite;
 }
 
-@media (max-width: 768px) {
-  @keyframes marquee {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-170%);
-    }
-  }
-
+@media (prefers-reduced-motion: reduce) {
   .marquee-scroll {
-    animation-duration: 30s;
+    animation: none;
   }
 }

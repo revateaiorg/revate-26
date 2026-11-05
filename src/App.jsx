@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -39,16 +40,36 @@ const App = () => {
     }
   }, []);
 
+  const { scrollY } = useScroll();
+  const reduceMotion = useReducedMotion();
+  const heroScale = useTransform(scrollY, [0, 700], reduceMotion ? [1, 1] : [1, 0.9]);
+  const heroOpacity = useTransform(scrollY, [0, 700], reduceMotion ? [1, 1] : [1, 0.35]);
+
   return (
     <main className="bg-black w-full max-w-screen grain-overlay">
-      <Hero />
-      <About />
-      <Services />
-      <Work />
-      <Process />
-      <CalBooking />
-      <Contact />
-      <Footer />
+      <Navbar />
+      <div className="relative">
+        <div className="sticky top-0 z-0">
+          <motion.div
+            style={{ scale: heroScale, opacity: heroOpacity }}
+            className="origin-top will-change-transform"
+          >
+            <Hero />
+          </motion.div>
+        </div>
+        <div className="relative z-10 bg-white rounded-t-[2rem] md:rounded-t-[3.5rem] shadow-[0_-40px_80px_-25px_rgba(0,0,0,0.7)]">
+          <About />
+          <Services />
+        </div>
+      </div>
+
+      <div className="relative z-20 bg-black">
+        <Work />
+        <Process />
+        <CalBooking />
+        <Contact />
+        <Footer />
+      </div>
     </main>
   );
 };

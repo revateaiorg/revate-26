@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "./Navbar";
 import BgVideo from "../assets/hero-bg-vid.webm";
 import BlurText from "./BlurText";
 
@@ -24,8 +23,6 @@ const Hero = () => {
 
       {/* Content */}
       <div className="relative h-full w-full ">
-        <Navbar />
-
         <div className="flex flex-col items-center justify-center h-full text-white text-center px-1">
           <div className="flex items-center justify-around gap-2 mb-6 font-sans-medium text-[12px] md:text-[16px] rounded-xl px-2 py-2 bg-white/8 backdrop-blur-lg border border-white/20 text-white/80">
             <div className="bg-[#3B82F6] rounded-sm text-[10px] md:text-[12px] flex items-center justify-center">
