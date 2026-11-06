@@ -91,6 +91,184 @@ const ShareIcon = () => (
   </svg>
 );
 
+/* ---------- NEW: card shell (background + border + hover spotlight) ---------- */
+function CardShell({ fixedHeight = false, children }) {
+  const onMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty("--x", `${e.clientX - r.left}px`);
+    e.currentTarget.style.setProperty("--y", `${e.clientY - r.top}px`);
+  };
+
+  return (
+    <div className="relative w-full max-w-sm z-10">
+      <div
+        onMouseMove={onMove}
+        className={`group relative rounded-3xl p-8 min-h-[650px] ${fixedHeight ? "h-[650px]" : ""
+          } overflow-hidden border border-white/10 bg-gradient-to-b from-[#1a1a1a] to-[#0c0c0c] shadow-[inset_0_1px_0_rgba(255,255,255,0.07)] transition-colors duration-300 hover:border-blue-500/40`}
+      >
+        {/* subtle dotted texture */}
+        <div
+          className="absolute inset-0 opacity-50 pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px)",
+            backgroundSize: "20px 20px",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, #000, transparent 60%)",
+            maskImage: "linear-gradient(to bottom, #000, transparent 60%)",
+          }}
+        />
+        {/* top edge highlight */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-2/3 bg-gradient-to-r from-transparent via-blue-400/50 to-transparent pointer-events-none" />
+        {/* cursor spotlight */}
+        <div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(320px circle at var(--x,50%) var(--y,50%), rgba(59,130,246,0.13), transparent 70%)",
+          }}
+        />
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/* ---------- NEW: number badge, title and text (same footprint as before) ---------- */
+function StepHeader({ step, title, text }) {
+  return (
+    <>
+      <div className="h-12 mb-6 flex items-center gap-3">
+        <div className="w-12 h-12 shrink-0 rounded-full bg-gradient-to-b from-white to-gray-300 flex items-center justify-center shadow-[0_0_0_4px_rgba(59,130,246,0.18),0_0_24px_rgba(59,130,246,0.35)]">
+          <span className="text-2xl font-bold text-slate-900">{step}</span>
+        </div>
+        <div className="h-px flex-1 bg-gradient-to-r from-blue-400/40 to-transparent" />
+        <span className="text-sm font-medium text-blue-300/70">
+          Step {step}
+        </span>
+      </div>
+      <h3 className="text-[22px] font-semibold tracking-tight text-white mb-2">
+        {title}
+      </h3>
+      <p className="text-gray-400 text-lg leading-relaxed mb-12">{text}</p>
+    </>
+  );
+}
+
+/* ---------- NEW: redesigned dashboard preview (card 3) ---------- */
+function DashboardPreview() {
+  const stats = [
+    { label: "Tasks automated", value: "1,284", delta: "+12%" },
+    { label: "Hours saved", value: "86h", delta: "+8%" },
+    { label: "Errors", value: "0.4%", delta: "-3%" },
+  ];
+  const line =
+    "M0 62 C18 58 28 44 46 48 S78 24 98 30 S136 12 158 20 S188 8 200 6";
+
+  return (
+    <div className="w-full h-[250px] rounded-xl border border-white/10 bg-neutral-950 shadow-[0_20px_50px_rgba(0,0,0,0.6)] p-3 flex flex-col gap-2.5 overflow-hidden">
+      <style>{`
+        @keyframes dash-draw { from { stroke-dashoffset: 1 } to { stroke-dashoffset: 0 } }
+        .dash-draw { stroke-dasharray: 1; animation: dash-draw 2.2s ease-out forwards }
+        @media (prefers-reduced-motion: reduce) { .dash-draw { animation: none; stroke-dashoffset: 0 } }
+      `}</style>
+
+      {/* window bar */}
+      <div className="flex items-center justify-between">
+        <div className="flex space-x-1.5 items-center">
+          <div className="bg-red-600 w-[10px] h-[10px] rounded-full"></div>
+          <div className="bg-yellow-600 w-[10px] h-[10px] rounded-full"></div>
+          <div className="bg-green-600 w-[10px] h-[10px] rounded-full"></div>
+        </div>
+        <div className="flex items-center gap-1.5 text-[10px] text-gray-400">
+          <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+          All systems running
+        </div>
+      </div>
+
+      {/* stat tiles */}
+      <div className="grid grid-cols-3 gap-2">
+        {stats.map((st) => (
+          <div
+            key={st.label}
+            className="rounded-lg border border-white/5 bg-white/[0.04] px-2.5 py-2"
+          >
+            <p className="text-[10px] text-gray-500 truncate">{st.label}</p>
+            <div className="flex items-baseline gap-1.5 mt-0.5">
+              <span className="text-[15px] font-semibold text-white">
+                {st.value}
+              </span>
+              <span className="text-[10px] font-medium text-emerald-400">
+                {st.delta}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* chart + donut */}
+      <div className="flex gap-2 flex-1 min-h-0">
+        <div className="flex-1 min-w-0 rounded-lg border border-white/5 bg-white/[0.04] p-2.5 flex flex-col">
+          <p className="text-[10px] text-gray-500 mb-1">Runs this week</p>
+          <svg
+            className="flex-1 w-full min-h-0"
+            viewBox="0 0 200 80"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <linearGradient id="dashFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.45" />
+                <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            {[20, 40, 60].map((y) => (
+              <line
+                key={y}
+                x1="0"
+                x2="200"
+                y1={y}
+                y2={y}
+                stroke="rgba(255,255,255,0.06)"
+                strokeWidth="1"
+                vectorEffect="non-scaling-stroke"
+              />
+            ))}
+            <path d={`${line} L200 80 L0 80 Z`} fill="url(#dashFill)" />
+            <path
+              d={line}
+              pathLength="1"
+              fill="none"
+              stroke="#60a5fa"
+              strokeWidth="2"
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+              className="dash-draw"
+            />
+          </svg>
+        </div>
+
+        <div className="w-[88px] shrink-0 rounded-lg border border-white/5 bg-white/[0.04] p-2.5 flex flex-col items-center justify-center gap-1.5">
+          <div className="relative w-14 h-14">
+            <div
+              className="absolute inset-0 rounded-full"
+              style={{
+                background:
+                  "conic-gradient(#3b82f6 0 72%, #1e3a8a 72% 90%, #374151 90% 100%)",
+                WebkitMask: "radial-gradient(circle, transparent 58%, #000 60%)",
+                mask: "radial-gradient(circle, transparent 58%, #000 60%)",
+              }}
+            />
+            <span className="absolute inset-0 flex items-center justify-center text-[11px] font-semibold text-white">
+              72%
+            </span>
+          </div>
+          <p className="text-[10px] text-gray-500">Completed</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Process() {
   return (
     <section id="process" className="p-8">
@@ -117,137 +295,91 @@ export default function Process() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto mt-10">
         {/* Card 1 */}
-        <div className="relative w-full max-w-sm z-10">
-          <div className="relative bg-gradient-to-b border-neutral-800 bg-neutral-900 rounded-3xl p-8 min-h-[650px] overflow-hidden border">
-            {/* Orange gradient with higher z-index */}
-            <div className="absolute -bottom-40 -left-35 w-[400px] h-[400px] rounded-full blur-3xl opacity-30 bg-gradient-to-r from-blue-500 to-blue-600 z-30" />
+        <CardShell>
+          {/* Blue gradient with higher z-index */}
+          <div className="absolute -bottom-40 -left-35 w-[400px] h-[400px] rounded-full blur-3xl opacity-30 bg-gradient-to-r from-blue-500 to-blue-600 z-30" />
 
-            <div className="relative z-10 h-42">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-6">
-                <span className="text-2xl font-bold text-slate-900">1</span>
+          <div className="relative z-10 h-42">
+            <StepHeader
+              step="1"
+              title="Share Your Workflow"
+              text="From lead gen to client onboarding, just share your workflow and the tools you use."
+            />
+            {/* Icons container with lower z-index */}
+            <div className="relative w-full h-full z-20">
+              <div className="absolute right-5 -rotate-12 w-30 h-30 rounded-full bg-gradient-to-tr from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 animate-pulse-scale">
+                <MailIcon />
               </div>
-              <h3 className="text-[22px] font-semibold text-white mb-2">
-                Share Your Workflow
-              </h3>
-              <p className="text-gray-400 text-lg leading-relaxed mb-12">
-                From lead gen to client onboarding, just share your workflow and
-                the tools you use.
-              </p>
-              {/* Icons container with lower z-index */}
-              <div className="relative w-full h-full z-20">
-                <div className="absolute right-5 -rotate-12 w-30 h-30 rounded-full bg-gradient-to-tr from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 animate-pulse-scale">
-                  <MailIcon />
-                </div>
-                <div className="absolute left-5 top-10 -rotate-12 w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 animate-pulse-scale-delayed-1">
-                  <ListIcon />
-                </div>
-                <div className="absolute left-0 -bottom-25 rotate-12 w-20 h-20 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 animate-pulse-scale-delayed-2">
-                  <CalendarIcon />
-                </div>
-                <div className="absolute right-4 -bottom-20 -rotate-12 w-20 h-20 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 animate-pulse-scale-delayed-3">
-                  <FileIcon />
-                </div>
-                <div className="absolute right-30 -bottom-40 -rotate-12 w-20 h-20 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 animate-pulse-scale-delayed-4">
-                  <TodoListIcon />
-                </div>
+              <div className="absolute left-5 top-10 -rotate-12 w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 animate-pulse-scale-delayed-1">
+                <ListIcon />
+              </div>
+              <div className="absolute left-0 -bottom-25 rotate-12 w-20 h-20 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 animate-pulse-scale-delayed-2">
+                <CalendarIcon />
+              </div>
+              <div className="absolute right-4 -bottom-20 -rotate-12 w-20 h-20 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 animate-pulse-scale-delayed-3">
+                <FileIcon />
+              </div>
+              <div className="absolute right-30 -bottom-40 -rotate-12 w-20 h-20 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 animate-pulse-scale-delayed-4">
+                <TodoListIcon />
               </div>
             </div>
           </div>
-        </div>
+        </CardShell>
 
         {/* Card 2 */}
-        <div className="relative w-full max-w-sm z-10">
-          <div className="relative bg-gradient-to-b border-neutral-800 bg-neutral-900 rounded-3xl p-8 min-h-[650px] h-[650px]  overflow-hidden border">
-            <div className="absolute -bottom-40 -left-35 w-[400px] h-[400px] rounded-full blur-3xl opacity-30 bg-gradient-to-r from-blue-500 to-blue-600 z-30" />
-            <div className="relative z-10">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-6">
-                <span className="text-2xl font-bold text-slate-900">2</span>
-              </div>
-              <h3 className="text-[22px] font-semibold text-white mb-2">
-                We Build the System
-              </h3>
-              <p className="text-gray-400 text-lg leading-relaxed mb-12">
-                We design and set up custom automations that connect your tools
-                with AI—so work happens while you sleep.
-              </p>
+        <CardShell fixedHeight>
+          <div className="absolute -bottom-40 -left-35 w-[400px] h-[400px] rounded-full blur-3xl opacity-30 bg-gradient-to-r from-blue-500 to-blue-600 z-30" />
+          <div className="relative z-10">
+            <StepHeader
+              step="2"
+              title="We Build the System"
+              text="We design and set up custom automations that connect your tools with AI—so work happens while you sleep."
+            />
 
-              <div className="relative overflow-hidden z-10">
-                {/* Top fade overlay */}
-                <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-neutral-900 to-transparent z-10 pointer-events-none" />
-
-                {/* Bottom fade overlay */}
-                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-neutral-900 to-transparent z-10 pointer-events-none" />
-
-                <div className="flex-col gap-6 animate-loop-y z-20">
-                  {/* First set of items */}
-                  <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
-                    <img src={Chatgpt} className="w-16" alt="ChatGPT logo" />
-                  </div>
-                  <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
-                    <img src={HubSpotIcon} className="w-16" alt="HubSpot logo" />
-                  </div>
-                  <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
-                    <img src={Airtable} className="w-16" alt="Airtable logo" />
-                  </div>
-                  <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
-                    <img src={Sheets} className="w-16" alt="Google Sheets logo" />
-                  </div>
+            {/* Fade via mask so it works on any background (no colored overlays) */}
+            <div
+              className="relative overflow-hidden z-10"
+              style={{
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent)",
+                maskImage:
+                  "linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent)",
+              }}
+            >
+              <div className="flex-col gap-6 animate-loop-y z-20">
+                {/* First set of items */}
+                <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
+                  <img src={Chatgpt} className="w-16" alt="ChatGPT logo" />
+                </div>
+                <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
+                  <img src={HubSpotIcon} className="w-16" alt="HubSpot logo" />
+                </div>
+                <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
+                  <img src={Airtable} className="w-16" alt="Airtable logo" />
+                </div>
+                <div className="w-26 h-26 rounded-full bg-gradient-to-br from-neutral-900 to-gray-700 flex items-center justify-center shadow-lg border-t-3 border-gray-500 ">
+                  <img src={Sheets} className="w-16" alt="Google Sheets logo" />
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </CardShell>
 
         {/* Card 3 */}
-        <div className="relative w-full max-w-sm">
-          <div className="relative bg-gradient-to-b border-neutral-800 bg-neutral-900 rounded-3xl p-8 min-h-[650px] h-[650px] overflow-hidden border">
-            <div className="absolute -bottom-40 -left-35 w-[400px] h-[400px] rounded-full blur-3xl opacity-30 bg-gradient-to-r from-blue-500 to-blue-600 z-30" />
-            <div className="relative z-10">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-6">
-                <span className="text-2xl font-bold text-slate-900">3</span>
-              </div>
-              <h3 className="text-[22px] font-semibold text-white mb-2">
-                Launch and Take Control
-              </h3>
-              <p className="text-gray-400 text-lg leading-relaxed mb-12">
-                You get a plug-and-play dashboard with a walkthrough to manage
-                everything easily.
-              </p>
+        <CardShell fixedHeight>
+          <div className="absolute -bottom-40 -left-35 w-[400px] h-[400px] rounded-full blur-3xl opacity-30 bg-gradient-to-r from-blue-500 to-blue-600 z-30" />
+          <div className="relative z-10">
+            <StepHeader
+              step="3"
+              title="Launch and Take Control"
+              text="You get a plug-and-play dashboard with a walkthrough to manage everything easily."
+            />
 
-              <div className="mt-25">
-                <div className="bg-black w-[400px] h-[250px] rounded-xl p-3 animate-pulse">
-                  <div className="flex space-x-1.5 items-center">
-                    <div className="bg-red-600 w-[12px] h-[12px] rounded-full"></div>
-                    <div className="bg-yellow-600 w-[12px] h-[12px] rounded-full"></div>
-
-                    <div className="bg-green-600 w-[12px] h-[12px] rounded-full"></div>
-                  </div>
-
-                  <div className="flex justify-between gap-4 pt-5">
-                    <div className="w-1/4 h-[50px] rounded-xl bg-gray-800"></div>
-                    <div className="w-1/4 h-[50px] rounded-xl bg-gray-800"></div>
-                    <div className="w-1/4 h-[50px] rounded-xl bg-gray-800"></div>
-                    <div className="w-1/4 h-[50px] rounded-xl bg-gray-800"></div>
-                  </div>
-
-                  <div className="flex h-full pt-3">
-                    <div className="w-3/5 h-3/5 bg-gray-800 rounded-xl flex justify-center items-center">
-                      {/* <TrendingUp className="text-gray-500" size={100} /> */}
-                      <ChartLine className="text-gray-500" size={100} />
-                      {/* <BarChart />
-                      <BarChart2Icon /> */}
-                    </div>
-                    <div className="flex-col w-2/5 h-3/5">
-                      <div className="h-full bg-gray-800 rounded-xl mb-2 ml-3 flex justify-center items-center">
-                        <PieChartIcon className="text-gray-500" size={70} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="mt-25">
+              <DashboardPreview />
             </div>
           </div>
-        </div>
+        </CardShell>
       </div>
     </section>
   );

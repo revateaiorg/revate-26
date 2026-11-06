@@ -25,7 +25,7 @@ const Navbar = () => {
           <div className="flex items-center space-x-2">
             {/* <span className="text-xl font-semibold ml-2">Radison</span> */}
             <a href="/" aria-label="Revate AI Homepage" target="_blank" rel="noopener noreferrer">
-              <img src={Logo} alt="Revate AI Logo" className="w-30 md:w-35" />
+              <img src={Logo} alt="Revate AI Logo" className="w-30 md:w-33" />
             </a>
           </div>
 
