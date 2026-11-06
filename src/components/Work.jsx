@@ -34,7 +34,7 @@ const projects = [
     year: "2026",
     title: "21 Gram Films",
     image: TwentyOneGram,
-    link: "https://21gramfilms.com/",
+    link: "https://21-gram-films.vercel.app/",
     desc: "Designed and developed a visually immersive, interactive landing page that showcases 21 Gram Films' short-form video production, reel shoots, and marketing services. Featuring bold visual storytelling, engaging media, and a premium dark aesthetic with vibrant green accents, the website highlights the agency's creative portfolio while making its services easy to explore and its contact journey seamless.",
     tags: ["Landing Page", "CMS"],
   },
@@ -54,33 +54,63 @@ const OFFSET = 30;
 // Height of one card on desktop: 55vh image/content + card padding/border
 const CARD_H = "calc(55vh + 42px)";
 
+const grain = `url("data:image/svg+xml;utf8,${encodeURIComponent(
+  `<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>`
+)}")`;
+
 function ProjectCard({ p }) {
   return (
-    // opaque base so cards behind don't show through the translucent card
-    <div className="w-full rounded-3xl bg-black">
+    <div
+      className="bg-black relative isolate w-full overflow-hidden rounded-3xl ring-1 ring-inset ring-blue-400/15"
+      style={{
+
+        boxShadow:
+          "0 30px 20px -35px rgba(37,99,235,0.55), inset 0 1px 0 rgba(255,255,255,0.10)",
+      }}
+    >
+      {/* film grain */}
       <div
-        className={`w-full backdrop-blur-xl border border-gray-900 bg-white/5 rounded-3xl flex flex-col md:flex-row justify-between items-center ${p.tight ? "px-2 py-4 md:px-4 md:py-5" : "px-4 py-5"
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.10] mix-blend-overlay"
+        style={{ backgroundImage: grain }}
+      />
+
+      <div
+        className={`relative w-full rounded-3xl border border-white/10 flex flex-col md:flex-row justify-between items-center ${p.tight ? "px-2 py-4 md:px-4 md:py-5" : "px-4 py-5"
           } space-y-4 md:space-y-0 md:space-x-4`}
       >
         {/* Image Section */}
         <div
-          className="rounded-3xl w-full md:w-2/5 h-48 md:h-[55vh] border border-gray-900 bg-cover bg-center"
+          className="relative w-full md:w-2/5 h-48 md:h-[55vh] overflow-hidden rounded-3xl border border-white/10 bg-cover bg-center shadow-[0_20px_50px_-20px_rgba(0,0,0,0.8)]"
           style={{ backgroundImage: `url(${p.image})` }}
-        ></div>
+        >
+          {/* soft blue-black fade at the bottom + glass edge */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#070C1F]/55 via-transparent to-transparent" />
+          <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />
+        </div>
 
         {/* Content Section */}
         <div
-          className={`relative w-full md:w-3/5 border border-gray-900 bg-white/5 rounded-3xl ${p.tight ? "p-4 md:p-5" : "p-5"
+          className={`relative w-full md:w-3/5 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.02] shadow-[inset_0_1px_0_rgba(255,255,255,0.10)] ${p.tight ? "p-4 md:p-5" : "p-5"
             } flex flex-col justify-between h-auto md:h-[55vh]`}
         >
-          <div className="space-y-4">
-            <div className="rounded-lg px-3 py-1 bg-[#3B82F6] backdrop-blur-lg border border-blue-500/20 w-fit">
+          {/* blue glow in the corner of the panel */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-24 -top-24 size-64 rounded-full bg-blue-500/20 blur-3xl"
+          />
+
+          <div className="relative space-y-4">
+            <div className="flex w-fit items-center gap-2 rounded-lg border border-blue-300/30 bg-gradient-to-b from-[#3B82F6] to-[#2563EB] px-3 py-1 shadow-[0_0_20px_rgba(59,130,246,0.45)]">
+              <span className="size-1.5 rounded-full bg-white/90" />
               <h1 className="text-sm md:text-md font-medium">{p.year}</h1>
             </div>
 
-            <h1 className="text-2xl md:text-4xl font-semibold">{p.title}</h1>
+            <h1 className="bg-gradient-to-b from-white to-blue-100/70 bg-clip-text text-2xl font-semibold text-transparent md:text-4xl">
+              {p.title}
+            </h1>
 
-            <p className="text-sm md:text-md xl:text-lg text-white/70">
+            <p className="text-sm md:text-md xl:text-lg text-white/65">
               {p.desc}
             </p>
 
@@ -88,26 +118,28 @@ function ProjectCard({ p }) {
               <div>
                 <a
                   href={p.link}
-                  className="w-fit px-3 py-1 bg-white text-black rounded-lg font-medium hover:bg-gray-200 transition-all duration-300 flex items-center gap-1"
+                  target="_blank"
+                  className="group/btn relative flex w-fit items-center gap-1.5 rounded-lg bg-[#3B82F6] px-4 py-1.5 font-medium text-white shadow-[0_0_24px_rgba(59,130,246,0.5)] transition-all duration-300 hover:bg-[#2563EB] hover:shadow-[0_0_34px_rgba(59,130,246,0.75)]"
                 >
-                  Visit Site <ArrowUpRight className="inline" />
+                  Visit Site
+                  <ArrowUpRight className="inline transition-transform duration-300 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
                 </a>
               </div>
             )}
           </div>
 
           {p.audio && (
-            <div className="h-12 w-full my-5 md:my-0 rounded-xl ">
+            <div className="relative h-12 w-full my-5 md:my-0 rounded-xl">
               <AudioPlayer audioSrc={p.audio} />
             </div>
           )}
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-3 mt-4">
+          <div className="relative mt-4 flex flex-wrap gap-3">
             {p.tags.map((t) => (
               <div
                 key={t}
-                className="rounded-lg px-3 py-1 backdrop-blur-lg border border-gray-800 w-fit"
+                className="w-fit rounded-lg border border-blue-400/20 bg-blue-500/10 px-3 py-1 text-blue-100/90 backdrop-blur-lg"
               >
                 <h1 className="text-sm md:text-md font-medium">{t}</h1>
               </div>
@@ -191,24 +223,9 @@ const Work = () => {
           <h2 className="text-md text-center font-medium">Our Works</h2>
         </div> */}
         <div className="mx-auto mb-7 w-[calc(100%-10px)]  sm:w-[calc(100%-64px)] min-[1024px]:mb-0">
-          <SectionHeading label="Our Works" dark title="Work That Speaks for Itself." accent="Backed by strategy. Driven by outcomes." align="center" description="A selection of the websites and systems we’ve brought to life." />
+          <SectionHeading label="Our Works" dark title="Work That Delivers." accent="Built with Purpose." align="center" description="A showcase of digital experiences we've crafted, from modern websites to custom applications and intelligent automation systems, built to turn ideas into impactful results." />
         </div>
-        {/* <div>
-          <BlurText
-            text="Work That Speaks for Itself."
-            delay={50}
-            animateBy="words"
-            direction="top"
-            className="text-center text-2xl md:text-5xl text-white px-5 md:w-4/5 leading-tight pt-5 mx-auto mt-5"
-          />
-          <BlurText
-            text="Backed by strategy. Driven by outcomes."
-            delay={50}
-            animateBy="words"
-            direction="top"
-            className="text-center text-2xl md:text-5xl text-white/70 px-5 md:w-4/5 leading-tight pb-5 mx-auto "
-          />
-        </div> */}
+
 
         {/* This whole block is what gets pinned on desktop (full screen, below the navbar) */}
         <div

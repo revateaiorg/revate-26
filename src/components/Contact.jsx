@@ -4,6 +4,7 @@ import CountrySelector from "./CountrySelector";
 import { Mail, Phone } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import CurrencySelector from "./CurrencySelector";
+import Globe from "./Globe";
 
 const Contact = () => {
   const form = useRef();
@@ -249,28 +250,42 @@ const Contact = () => {
 
   return (
     <section id="contact" className="font-content text-white">
-      <div className="mx-auto mt-26 grid w-[calc(100%-40px)] max-w-7xl gap-10 min-[600px]:w-[calc(100%-48px)] min-[900px]:grid-cols-[0.9fr_1.1fr] min-[900px]:items-start min-[900px]:gap-16">
+      <div className="mx-auto mt-26 grid w-[calc(100%-40px)] max-w-7xl gap-10 min-[600px]:w-[calc(100%-48px)] min-[900px]:grid-cols-[0.9fr_1.1fr] min-[900px]:items-start min-[900px]:gap-12">
         {/* Left: heading and direct contact details */}
-        <div>
-          <SectionHeading dark label="Contact us" title="Tell us what’s next." accent="We’ll help you build it." description="Share your goals, your challenges, or an idea you want to explore." />
+        {/* <div className="w-full h-full p-1 md:p-8 rounded-3xl border border-white/10 bg-[#080808]  sm:p-2"> */}
+        <div
+          className="relative overflow-hidden min-h-[480px] min-[900px]:min-h-0 w-full h-full p-6 md:p-8 rounded-3xl border border-blue-400/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_30px_80px_-40px_rgba(37,99,235,0.6)] sm:p-5"
+          style={{
+            background: `
+      radial-gradient(70% 45% at 0% 0%, rgba(37,99,235,0.30), transparent 60%),
+      radial-gradient(80% 50% at 15% 100%, rgba(37,99,235,0.40), transparent 65%),
+      linear-gradient(165deg, #0B1535 0%, #070C1F 50%, #05070F 100%)
+    `,
+          }}
+        >          <div className="relative z-10">
+            <SectionHeading dark label="Contact us" title="Let's Start with" accent="your idea next" description="Share your goals, challenges, or ideas with us. Let's explore how we can work together to create meaningful solutions for your business." />
 
-          <div className="mt-7 flex flex-col items-start gap-3">
-            {contactLinks.map((link) => {
-              const Icon = link.icon;
-              return (
-                <a
-                  key={link.key}
-                  href={link.href}
-                  {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="flex w-fit items-center gap-2.5 rounded-xl border border-white/20 bg-white/8 px-3 py-2 text-sm font-medium text-white/80 backdrop-blur-lg transition-colors hover:border-accent hover:text-white md:text-base"
-                >
-                  <span className="grid size-7 shrink-0 place-items-center rounded-md bg-[#3B82F6] text-white">
-                    <Icon size={15} aria-hidden="true" />
-                  </span>
-                  {link.label}
-                </a>
-              );
-            })}
+            <div className="mt-7 flex flex-col md:flex-row items-start gap-3">
+              {contactLinks.map((link) => {
+                const Icon = link.icon;
+                return (
+                  <a
+                    key={link.key}
+                    href={link.href}
+                    {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className="flex w-fit items-center gap-2.5 rounded-xl border border-white/20 bg-white/8 px-3 py-2 text-sm font-medium text-white/80 backdrop-blur-lg transition-colors hover:border-accent hover:text-white md:text-base"
+                  >
+                    <span className="grid size-7 shrink-0 place-items-center rounded-md bg-[#3B82F6] text-white">
+                      <Icon size={15} aria-hidden="true" />
+                    </span>
+                    {link.label}
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+          <div className="absolute -bottom-60 -left-26 md:-bottom-40 md:-left-18">
+            <Globe />
           </div>
         </div>
 

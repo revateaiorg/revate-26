@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
+import Lenis from "lenis";
+import "lenis/dist/lenis.css";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -11,26 +13,83 @@ import FAQ from "./components/FAQ";
 import CalBooking from "./components/CalBooking";
 
 const App = () => {
+  const lenisRef = useRef(null);
+
+  // Smooth scroll (must stay inside useEffect so your prerender step doesn't touch `window`)
+  useEffect(() => {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (reduceMotion) return;
+
+    const lenis = new Lenis({
+      duration: 1.2, // higher = floatier, lower = snappier
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+    lenisRef.current = lenis;
+
+    // Keep scrolling locked while the preloader is showing
+    if (document.getElementById("preloader-overlay")) lenis.stop();
+
+    let rafId;
+    const raf = (time) => {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    };
+    rafId = requestAnimationFrame(raf);
+
+    // Smooth anchor links (#about, #contact, ...)
+    const onClick = (e) => {
+      const link = e.target.closest?.('a[href^="#"]');
+      if (!link) return;
+      const hash = link.getAttribute("href");
+
+      if (hash === "#") {
+        e.preventDefault();
+        lenis.scrollTo(0);
+        return;
+      }
+
+      let target = null;
+      try {
+        target = document.querySelector(hash);
+      } catch {
+        return;
+      }
+      if (!target) return;
+
+      e.preventDefault();
+      lenis.scrollTo(target, { offset: -100 }); // matches your scroll-margin-top
+    };
+    document.addEventListener("click", onClick);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      document.removeEventListener("click", onClick);
+      lenis.destroy();
+      lenisRef.current = null;
+    };
+  }, []);
+
+  // Preloader (unchanged, plus one line to unlock scrolling)
   useEffect(() => {
     const handleRemovePreloader = () => {
       const preloader = document.getElementById("preloader-overlay");
       if (preloader) {
         preloader.style.opacity = "0";
         document.body.style.overflow = "auto";
+        lenisRef.current?.start(); // <-- unlock smooth scroll
         setTimeout(() => {
           preloader.remove();
-        }, 500); // match CSS transition duration
+        }, 500);
       }
     };
 
-    // If the page is already fully loaded, remove it immediately
     if (document.readyState === "complete") {
       handleRemovePreloader();
     } else {
-      // Otherwise, wait for the load event (when all images and scripts are fully loaded)
       window.addEventListener("load", handleRemovePreloader);
-
-      // Fallback safety timeout (3.5 seconds) in case a slow resource hangs the load event
       const fallback = setTimeout(handleRemovePreloader, 3500);
 
       return () => {
