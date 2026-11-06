@@ -53,7 +53,7 @@ const App = () => {
         </div>
       </div>
 
-      <div className="relative z-20 bg-black">
+      <div className="relative z-20 max-w-screen overflow-x-hidden bg-black">
         <Work />
         <Process />
         <FAQ />

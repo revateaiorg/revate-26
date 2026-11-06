@@ -125,7 +125,7 @@ const About = () => {
 
           {/* Section heading */}
           <div className="flex flex-col justify-between py-2 md:py-4">
-            <SectionHeading compact label="Why choose Revate AI?" title="Built on understanding." accent="Made to earn your trust." description="Useful technology starts with your business. We focus on clear scope, connected tools, and systems your team can actually use." />
+            <SectionHeading label="Why choose Revate AI?" title="Built on understanding." accent="Made to earn your trust." description="Useful technology starts with your business. We focus on clear scope, connected tools, and systems your team can actually use." />
           </div>
 
           {cards.map((card) => (
