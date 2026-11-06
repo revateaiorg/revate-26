@@ -53,6 +53,9 @@ const projects = [
 const OFFSET = 30;
 // Height of one card on desktop: 55vh image/content + card padding/border
 const CARD_H = "calc(55vh + 42px)";
+// Space (px) between the top of the screen and the pinned card (navbar clearance).
+// Increase if the card touches your navbar when pinned, decrease for less space.
+const PIN_TOP = 120;
 
 const grain = `url("data:image/svg+xml;utf8,${encodeURIComponent(
   `<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>`
@@ -63,7 +66,6 @@ function ProjectCard({ p }) {
     <div
       className="bg-black relative isolate w-full overflow-hidden rounded-3xl ring-1 ring-inset ring-blue-400/15"
       style={{
-
         boxShadow:
           "0 30px 20px -35px rgba(37,99,235,0.55), inset 0 1px 0 rgba(255,255,255,0.10)",
       }}
@@ -176,7 +178,9 @@ const Work = () => {
           defaults: { ease: "none" },
           scrollTrigger: {
             trigger: stackRef.current,
-            start: "top top",
+            // Pin once the stack's top reaches PIN_TOP px from the top of the screen,
+            // so before that the first card scrolls normally with the page.
+            start: `top ${PIN_TOP}px`,
             end: () => `+=${window.innerHeight * (n - 1)}`,
             scrub: true,
             pin: true,
@@ -189,10 +193,10 @@ const Work = () => {
           if (i === 0) return;
           const at = (i - 1) * 1; // each card gets 1 unit of the timeline
 
-          // new card slides up from the bottom of the screen
+          // new card slides up from the bottom edge of the pinned area
           tl.fromTo(
             card,
-            { y: () => window.innerHeight },
+            { y: () => stackRef.current.offsetHeight },
             { y: i * OFFSET, duration: 1 },
             at
           );
@@ -219,18 +223,22 @@ const Work = () => {
   return (
     <section id="works" ref={rootRef}>
       <div className="h-full text-white mt-26 w-full">
-        {/* <div className="rounded-lg px-4 py-1 bg-white/8 backdrop-blur-lg border border-blue-500/20 w-fit flex items-center justify-center mx-auto mt-10">
-          <h2 className="text-md text-center font-medium">Our Works</h2>
-        </div> */}
-        <div className="mx-auto mb-7 w-[calc(100%-10px)]  sm:w-[calc(100%-64px)] min-[1024px]:mb-0">
-          <SectionHeading label="Our Works" dark title="Work That Delivers." accent="Built with Purpose." align="center" description="A showcase of digital experiences we've crafted, from modern websites to custom applications and intelligent automation systems, built to turn ideas into impactful results." />
+        <div className="mx-auto mb-7 w-[calc(100%-10px)] sm:w-[calc(100%-64px)] min-[1024px]:mb-0">
+          <SectionHeading
+            label="Our Works"
+            dark
+            title="Work That Delivers."
+            accent="Built with Purpose."
+            align="center"
+            description="A showcase of digital experiences we've crafted, from modern websites to custom applications and intelligent automation systems, built to turn ideas into impactful results."
+          />
         </div>
 
-
-        {/* This whole block is what gets pinned on desktop (full screen, below the navbar) */}
+        {/* Pinned block: no top padding anymore, height = screen minus the pin offset */}
         <div
           ref={stackRef}
-          className="px-3 md:px-20 lg:px-32 mt-10 md:mt-0 md:h-screen md:pt-28 md:overflow-hidden"
+          className="px-3 md:px-20 lg:px-32 mt-10 md:mt-6 md:h-[calc(100vh_-_var(--pin-top))] md:overflow-hidden"
+          style={{ "--pin-top": `${PIN_TOP}px` }}
         >
           <div
             className="flex flex-col gap-10 md:block md:relative md:h-[var(--stack-h)]"
