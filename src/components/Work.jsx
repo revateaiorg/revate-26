@@ -10,8 +10,8 @@ import SSPA from "../assets/audio/recording.wav";
 
 const Work = () => {
   return (
-    <section id="works">
-      <div className="h-full text-white mt-26 w-full">
+    <section id="works" className="flow-root bg-black pt-14 font-content min-[700px]:pt-20">
+      <div className="h-full w-full text-white">
         <SectionHeading dark align="center" label="Our works" title="Work that speaks" accent="for itself." description="A selection of the websites and systems we’ve brought to life." />
 
         {/* Tabs */}

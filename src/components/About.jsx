@@ -112,7 +112,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="section-space"
+      className="pb-14 pt-16 font-content min-[600px]:pt-20 min-[900px]:pt-28"
     >
       <div className="mx-auto max-w-7xl px-5 md:px-6">
 
@@ -125,7 +125,7 @@ const About = () => {
 
           {/* Section heading */}
           <div className="flex flex-col justify-between py-2 md:py-4">
-            <SectionHeading label="Why choose Revate AI?" title="Built on understanding." accent="Made to earn your trust." description="Useful technology starts with your business. We focus on clear scope, connected tools, and systems your team can actually use." />
+            <SectionHeading compact label="Why choose Revate AI?" title="Built on understanding." accent="Made to earn your trust." description="Useful technology starts with your business. We focus on clear scope, connected tools, and systems your team can actually use." />
           </div>
 
           {cards.map((card) => (

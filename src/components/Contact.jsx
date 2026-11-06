@@ -11,6 +11,7 @@ const Contact = () => {
   const [country, setCountry] = useState("");
   const [currency, setCurrency] = useState("₹");
   const [success, setSuccess] = useState(false);
+  const [messageLength, setMessageLength] = useState(0);
 
   // Form validation state
   const [errors, setErrors] = useState({});
@@ -33,12 +34,13 @@ const Contact = () => {
           return "Last name can only contain letters";
         return "";
 
-      case "email_id":
+      case "email_id": {
         if (!value.trim()) return "Email is required";
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value))
           return "Please enter a valid email address";
         return "";
+      }
 
       case "phone_no":
         // Phone is optional — only validate format if user typed something
@@ -81,6 +83,10 @@ const Contact = () => {
 
     // Update touched state
     setTouched((prev) => ({ ...prev, [name]: true }));
+
+    if (name === "message") {
+      setMessageLength(value.length);
+    }
 
     // Validate field
     const error = validateField(name, value);
@@ -190,6 +196,7 @@ const Contact = () => {
           setCurrency("");
           setErrors({});
           setTouched({});
+          setMessageLength(0);
         },
         (error) => {
           console.log("EmailJS error:", error);
@@ -209,203 +216,161 @@ const Contact = () => {
       : `${baseClass} border-white/10 focus:border-blue-500/50`;
   };
 
+  const contactLinks = [
+    {
+      key: "phone",
+      href: "tel:+919344240280",
+      label: "+91 9962713368",
+      icon: Phone,
+    },
+    {
+      key: "email",
+      href: "https://mail.google.com/mail/?view=cm&fs=1&to=revateaiorg@gmail.com",
+      label: "revateaiorg@gmail.com",
+      icon: Mail,
+      external: true,
+    },
+  ];
+
+  const fieldRows = [
+    [
+      { name: "from_name", label: "First name", placeholder: "John", required: true },
+      { name: "last_name", label: "Last name", placeholder: "Doe", required: true },
+    ],
+    [
+      { name: "email_id", label: "Your email", placeholder: "johndoe@gmail.com", type: "email", required: true },
+      { name: "country", label: "Where are you from?", custom: "country" },
+    ],
+    [
+      { name: "phone_no", label: "Mobile Number", placeholder: "Enter mobile number (without country code)" },
+      { name: "budget", label: "What's your budget?", placeholder: "Enter your budget", custom: "currency" },
+    ],
+  ];
+
   return (
-    <section id="contact">
-      <div className="h-full text-white mt-26 w-full px-4">
-        <SectionHeading dark align="center" label="Contact us" title="Tell us what’s next." accent="We’ll help you build it." description="Share your goals, your challenges, or an idea you want to explore." />
+    <section id="contact" className="font-content text-white">
+      <div className="mx-auto mt-26 grid w-[calc(100%-40px)] max-w-7xl gap-10 min-[600px]:w-[calc(100%-48px)] min-[900px]:grid-cols-[0.9fr_1.1fr] min-[900px]:items-start min-[900px]:gap-16">
+        {/* Left: heading and direct contact details */}
+        <div>
+          <SectionHeading dark label="Contact us" title="Tell us what’s next." accent="We’ll help you build it." description="Share your goals, your challenges, or an idea you want to explore." />
 
-        {/* Heading */}
-
-        {/* Contact Info */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-4">
-          <a
-            href="tel:+919344240280"
-            className="cursor-pointer w-fit flex items-center justify-around gap-2 mb-2 font-sans-medium text-[12px] md:text-[16px] rounded-xl px-3 py-2 bg-white/8 backdrop-blur-lg border border-white/20 text-white/80"
-          >
-            <div className="bg-[#3B82F6] rounded-sm text-[10px] md:text-[12px] flex items-center justify-center">
-              <p className="px-1 py-1 font-sans-bold text-center text-white">
-                <Phone className="inline p-1" />
-              </p>
-            </div>
-            <p className="font-sans-regular text-sm md:text-lg">
-              +91 9962713368
-            </p>
-          </a>
-          <a
-            href="https://mail.google.com/mail/?view=cm&fs=1&to=revateaiorg@gmail.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cursor-pointer w-fit flex items-center justify-around gap-2 mb-2 font-sans-medium text-[12px] md:text-[16px] rounded-xl px-3 py-2 bg-white/8 backdrop-blur-lg border border-white/20 text-white/80"
-          >
-            <div className="bg-[#3B82F6] rounded-sm text-[10px] md:text-[12px] flex items-center justify-center">
-              <p className="px-1 py-1 font-sans-bold text-center text-white">
-                <Mail className="inline p-1" />
-              </p>
-            </div>
-            <p className="font-sans-regular text-sm md:text-lg">
-              revateaiorg@gmail.com
-            </p>
-          </a>
+          <div className="mt-7 flex flex-col items-start gap-3">
+            {contactLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <a
+                  key={link.key}
+                  href={link.href}
+                  {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="flex w-fit items-center gap-2.5 rounded-xl border border-white/20 bg-white/8 px-3 py-2 text-sm font-medium text-white/80 backdrop-blur-lg transition-colors hover:border-accent hover:text-white md:text-base"
+                >
+                  <span className="grid size-7 shrink-0 place-items-center rounded-md bg-[#3B82F6] text-white">
+                    <Icon size={15} aria-hidden="true" />
+                  </span>
+                  {link.label}
+                </a>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Form Section */}
-        <div className="w-full flex items-start justify-center mx-auto mt-5">
-          <div className="w-full md:w-4/5 lg:w-3/5 h-full bg-cover rounded-4xl border bg-[#080808] border-white/10 mx-auto relative backdrop:blur-2xl p-2">
-            <div className="w-full h-full bg-cover rounded-3xl border bg-[#080808] border-white/10 mx-auto relative backdrop:blur-2xl">
-              <form
-                ref={form}
-                onSubmit={sendEmail}
-                className="flex flex-col space-y-6 p-4 md:p-10"
-              >
-                <div className="flex flex-col md:flex-row gap-6">
-                  <div className="w-full flex flex-col space-y-2">
-                    <h3>
-                      First name <span className="text-red-500">*</span>
-                    </h3>
-                    <input
-                      type="text"
-                      name="from_name"
-                      placeholder="John"
-                      className={getInputClassName("from_name")}
-                      onChange={handleInputChange}
-                      onBlur={handleBlur}
-                    />
-                    {errors.from_name && touched.from_name && (
-                      <p className="text-red-400 text-sm">{errors.from_name}</p>
+        {/* Right: the enquiry form */}
+        <div className="w-full rounded-3xl border border-white/10 bg-[#080808] p-1.5 sm:p-2">
+          <form
+            ref={form}
+            onSubmit={sendEmail}
+            noValidate
+            className="flex flex-col space-y-6 p-4 md:p-8"
+          >
+            {fieldRows.map((row) => (
+              <div key={row.map((f) => f.name).join("-")} className="flex flex-col gap-6 min-[1100px]:flex-row">
+                {row.map((field) => (
+                  <div key={field.name} className="flex w-full flex-col space-y-2">
+                    {field.custom ? (
+                      <span>
+                        {field.label}
+                        {field.required ? <span className="text-red-500"> *</span> : null}
+                      </span>
+                    ) : (
+                      <label htmlFor={`contact-${field.name}`}>
+                        {field.label} {field.required && <span className="text-red-500">*</span>}
+                      </label>
                     )}
-                  </div>
-                  <div className="w-full flex flex-col space-y-2">
-                    <h3>
-                      Last name <span className="text-red-500">*</span>
-                    </h3>
-                    <input
-                      type="text"
-                      name="last_name"
-                      placeholder="Doe"
-                      className={getInputClassName("last_name")}
-                      onChange={handleInputChange}
-                      onBlur={handleBlur}
-                    />
-                    {errors.last_name && touched.last_name && (
-                      <p className="text-red-400 text-sm">{errors.last_name}</p>
-                    )}
-                  </div>
-                </div>
 
-                <div className="flex flex-col md:flex-row gap-6">
-                  <div className="w-full flex flex-col space-y-2">
-                    <h3>
-                      Your email <span className="text-red-500">*</span>
-                    </h3>
-                    <input
-                      type="email"
-                      name="email_id"
-                      placeholder="johndoe@gmail.com"
-                      className={getInputClassName("email_id")}
-                      onChange={handleInputChange}
-                      onBlur={handleBlur}
-                    />
-                    {errors.email_id && touched.email_id && (
-                      <p className="text-red-400 text-sm">{errors.email_id}</p>
-                    )}
-                  </div>
-                  <div className="w-full flex flex-col space-y-2">
-                    <h3>Where are you from?</h3>
-                    <CountrySelector
-                      value={country}
-                      onChange={handleCountryChange}
-                    />
-                    {errors.country && touched.country && (
-                      <p className="text-red-400 text-sm">{errors.country}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex flex-col md:flex-row gap-6">
-                  <div className="w-full flex flex-col space-y-2">
-                    <h3>Mobile Number</h3>
-                    <input
-                      type="text"
-                      name="phone_no"
-                      placeholder="Enter mobile number (without country code)"
-                      className={getInputClassName("phone_no")}
-                      onChange={handleInputChange}
-                      onBlur={handleBlur}
-                    />
-                    {errors.phone_no && touched.phone_no && (
-                      <p className="text-red-400 text-sm">{errors.phone_no}</p>
-                    )}
-                  </div>
-                  <div className="w-full flex flex-col space-y-2">
-                    <h3>What's your budget?</h3>
-                    <div className="relative flex">
-                      <CurrencySelector
-                        value={currency}
-                        onChange={handleCurrencyChange}
-                      />
+                    {field.custom === "country" ? (
+                      <CountrySelector value={country} onChange={handleCountryChange} />
+                    ) : field.custom === "currency" ? (
+                      <div className="relative flex">
+                        <CurrencySelector value={currency} onChange={handleCurrencyChange} />
+                        <input
+                          id={`contact-${field.name}`}
+                          type="text"
+                          name={field.name}
+                          placeholder={field.placeholder}
+                          className={getInputClassName(field.name)}
+                          onChange={handleInputChange}
+                          onBlur={handleBlur}
+                        />
+                      </div>
+                    ) : (
                       <input
-                        type="text"
-                        name="budget"
-                        placeholder="Enter your budget"
-                        className={getInputClassName("budget")}
+                        id={`contact-${field.name}`}
+                        type={field.type || "text"}
+                        name={field.name}
+                        placeholder={field.placeholder}
+                        className={getInputClassName(field.name)}
                         onChange={handleInputChange}
                         onBlur={handleBlur}
                       />
-                    </div>
-                    {(errors.currency && touched.currency) ||
-                      (errors.budget && touched.budget) ? (
-                      <p className="text-red-400 text-sm">
-                        {(touched.currency && errors.currency) ||
-                          (touched.budget && errors.budget)}
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
-
-                <div className="flex flex-col space-y-2">
-                  <h3>
-                    Message <span className="text-red-500">*</span>
-                  </h3>
-                  <textarea
-                    name="message"
-                    placeholder="Type your message here..."
-                    className={`${getInputClassName(
-                      "message"
-                    )} h-32 resize-none`}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                  />
-                  <div className="flex justify-between items-center">
-                    {errors.message && touched.message && (
-                      <p className="text-red-400 text-sm">{errors.message}</p>
                     )}
-                    <p className="text-white/50 text-sm ml-auto">
-                      {form.current?.message?.value?.length || 0}/1000
-                    </p>
-                  </div>
-                </div>
 
-                <div className="relative w-full mx-auto group">
-                  <div className="absolute -inset-0 bg-[#3B82F6] rounded-xl blur-sm group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt"></div>
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="cursor-pointer relative w-full inline-flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 duration-200 bg-[#3B82F6] hover:bg-[#2563EB] disabled:opacity-50 disabled:cursor-not-allowed text-white px-8 py-3 rounded-lg"
-                  >
-                    {loading ? "Sending..." : "Submit"}
-                  </button>
-                </div>
-
-                {success && (
-                  <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-4">
-                    <p className="text-green-400 text-center font-medium">
-                      Message Sent Successfully! We'll get back to you soon.
-                    </p>
+                    {errors[field.name] && touched[field.name] && (
+                      <p className="text-sm text-red-400">{errors[field.name]}</p>
+                    )}
                   </div>
-                )}
-              </form>
+                ))}
+              </div>
+            ))}
+
+            <div className="flex flex-col space-y-2">
+              <label htmlFor="contact-message">
+                Message <span className="text-red-500">*</span>
+              </label>
+              <textarea
+                id="contact-message"
+                name="message"
+                placeholder="Type your message here..."
+                className={`${getInputClassName("message")} h-32 resize-none`}
+                onChange={handleInputChange}
+                onBlur={handleBlur}
+              />
+              <div className="flex items-center justify-between gap-3">
+                {errors.message && touched.message ? (
+                  <p className="text-sm text-red-400">{errors.message}</p>
+                ) : null}
+                <p className="ml-auto text-sm text-white/50">{messageLength}/1000</p>
+              </div>
             </div>
-          </div>
+
+            <div className="relative w-full group">
+              <div className="absolute -inset-0 rounded-xl bg-[#3B82F6] blur-sm transition-all group-hover:-inset-1 group-hover:duration-200"></div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="relative inline-flex w-full cursor-pointer items-center justify-center rounded-lg bg-[#3B82F6] px-8 py-3 text-white transition-all duration-200 hover:bg-[#2563EB] focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {loading ? "Sending..." : "Submit"}
+              </button>
+            </div>
+
+            {success && (
+              <div className="rounded-lg border border-green-500/30 bg-green-500/20 p-4">
+                <p className="text-center font-medium text-green-400">
+                  Message Sent Successfully! We'll get back to you soon.
+                </p>
+              </div>
+            )}
+          </form>
         </div>
       </div>
     </section>

@@ -44,7 +44,7 @@ const Marquee = () => {
 
   return (
     <div className="relative mt-12 overflow-hidden md:mt-16">
-      <div className="marquee-scroll flex w-max">
+      <div className="flex w-max animate-marquee motion-reduce:animate-none">
         {renderSet("set-a")}
         {renderSet("set-b")}
       </div>

@@ -12,7 +12,7 @@ export default function CalBooking() {
     })();
   }, []);
   return (
-    <section id="booking">
+    <section id="booking" className="font-content">
       <div className="h-full text-white mt-16 w-full">
         <SectionHeading dark align="center" label="Let’s get started" title="A smarter business" accent="starts with a conversation." description="Book a free strategy call to discuss your workflow, goals, and the right next step." />
       </div>

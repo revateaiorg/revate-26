@@ -71,7 +71,7 @@ async function prerender() {
   defineGlobal("window", {
     addEventListener: () => {},
     removeEventListener: () => {},
-    matchMedia: () => ({ matches: false, addListener: () => {}, removeListener: () => {} }),
+    matchMedia: () => ({ matches: false, addListener: () => {}, removeListener: () => {}, addEventListener: () => {}, removeEventListener: () => {} }),
     getComputedStyle: () => ({}),
     innerWidth: 1200,
     innerHeight: 800,
