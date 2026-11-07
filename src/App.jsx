@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
+import Preloader from "./components/Preloader";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -14,6 +15,7 @@ import CalBooking from "./components/CalBooking";
 
 const App = () => {
   const lenisRef = useRef(null);
+  const [showPreloader, setShowPreloader] = useState(true);
 
   // Smooth scroll (must stay inside useEffect so your prerender step doesn't touch `window`)
   useEffect(() => {
@@ -29,8 +31,8 @@ const App = () => {
     });
     lenisRef.current = lenis;
 
-    // Keep scrolling locked while the preloader is showing
-    if (document.getElementById("preloader-overlay")) lenis.stop();
+    // Keep scrolling locked while preloader is active
+    if (showPreloader) lenis.stop();
 
     let rafId;
     const raf = (time) => {
@@ -72,35 +74,14 @@ const App = () => {
     };
   }, []);
 
-  // Preloader (unchanged, plus one line to unlock scrolling)
-  useEffect(() => {
-    const handleRemovePreloader = () => {
-      const preloader = document.getElementById("preloader-overlay");
-      if (preloader) {
-        preloader.style.opacity = "0";
-        document.body.style.overflow = "auto";
-        lenisRef.current?.start(); // <-- unlock smooth scroll
-        setTimeout(() => {
-          preloader.remove();
-        }, 500);
-      }
-    };
-
-    if (document.readyState === "complete") {
-      handleRemovePreloader();
-    } else {
-      window.addEventListener("load", handleRemovePreloader);
-      const fallback = setTimeout(handleRemovePreloader, 3500);
-
-      return () => {
-        window.removeEventListener("load", handleRemovePreloader);
-        clearTimeout(fallback);
-      };
-    }
-  }, []);
+  const handlePreloaderComplete = () => {
+    setShowPreloader(false);
+    lenisRef.current?.start();
+  };
 
   return (
     <main className="bg-black w-full max-w-screen grain-overlay">
+      {showPreloader && <Preloader onComplete={handlePreloaderComplete} />}
       <Navbar />
       <div className="relative">
         <div className="sticky top-0 z-0">

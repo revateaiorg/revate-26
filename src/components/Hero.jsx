@@ -49,8 +49,8 @@ const Hero = () => {
       <div className="relative h-full w-full ">
         <div className="flex flex-col items-center justify-center h-full text-white text-center px-1">
           {/* Badge */}
-          <div className="mb-6 rounded-full p-px bg-gradient-to-r from-blue-500/70 via-white/20 to-cyan-400/60 shadow-[0_0_30px_-6px_rgba(59,130,246,0.6)]">
-            <div className="flex items-center gap-3 rounded-full bg-[#080b18]/90 backdrop-blur-xl pl-3 pr-5 py-1.5 text-[12px] md:text-[14px]">
+          <div className="mb-6 rounded-full p-px bg-gradient-to-r backdrop-blur-xl from-blue-500/70 via-white/20 to-cyan-400/60 shadow-[0_0_30px_-6px_rgba(59,130,246,0.6)]">
+            <div className="flex items-center gap-3 rounded-full bg-black/60  pl-3 pr-5 py-1.5 text-[12px] md:text-[14px]">
               {/* Pulsing dot */}
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75" />
