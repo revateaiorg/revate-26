@@ -56,9 +56,8 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`font-content fixed top-3 md:top-5 left-0 w-full z-50 px-4 transition-transform duration-350 ease-out ${
-        isVisible ? "translate-y-0" : "-translate-y-[150%] pointer-events-none"
-      }`}
+      className={`font-content fixed top-3 md:top-5 left-0 w-full z-50 px-4 transition-transform duration-350 ease-out ${isVisible ? "translate-y-0" : "-translate-y-[150%] pointer-events-none"
+        }`}
     >
       <div className="md:max-w-[1300px] mx-auto bg-black/40 backdrop-blur-lg border border-white/15 shadow-lg rounded-2xl text-white px-5 py-3 md:py-4">
         <div className=" flex items-center justify-between">
@@ -153,7 +152,7 @@ const Navbar = () => {
           </div>
 
           {/* Get in touch button - Desktop */}
-          <div className="hidden md:block">
+          {/* <div className="hidden md:block">
             <div className="relative inline-flex  group">
               <div className="absolute  -inset-px bg-[#3B82F6] rounded-xl blur-sm group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt"></div>
 
@@ -164,6 +163,41 @@ const Navbar = () => {
                 className=" cursor-pointer relative inline-flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 duration-200  bg-[#3B82F6] hover:bg-[#2563EB]  text-white px-6 py-2 rounded-lg "
               >
                 Get in touch
+              </a>
+            </div>
+          </div> */}
+          {/* Get in touch button - Desktop */}
+          <div className="hidden md:block">
+            <div className="group relative inline-flex">
+              {/* Ambient glow */}
+              <div className="absolute -inset-1 rounded-2xl bg-blue-500/40 blur-lg opacity-50 transition-all duration-500 group-hover:opacity-100"></div>
+
+              <a
+                href="https://cal.com/pradeep-srinivasan/free-strategy-call"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative inline-flex items-center gap-2 overflow-hidden rounded-xl px-6 py-2 text-white
+        bg-gradient-to-b from-blue-400 to-blue-600
+        shadow-[inset_0_1px_0_0_rgba(255,255,255,0.35),0_6px_18px_-6px_rgba(59,130,246,0.8)]
+        transition-all duration-300 ease-out
+        hover:-translate-y-0.5 active:translate-y-0 active:scale-95
+        focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 motion-reduce:transition-none"
+              >
+                {/* Shimmer sweep */}
+                <span className="pointer-events-none absolute inset-0 -translate-x-full skew-x-[-20deg] bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"></span>
+
+                <span className="relative">Get in touch</span>
+                <svg
+                  className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
               </a>
             </div>
           </div>
@@ -177,19 +211,16 @@ const Navbar = () => {
               className="flex flex-col justify-center items-center w-8 h-8 space-y-1 focus:outline-none"
             >
               <div
-                className={`w-6 h-0.5 bg-white transition-all duration-300 ease-in-out ${
-                  isMenuOpen ? "rotate-45 translate-y-1.5" : ""
-                }`}
+                className={`w-6 h-0.5 bg-white transition-all duration-300 ease-in-out ${isMenuOpen ? "rotate-45 translate-y-1.5" : ""
+                  }`}
               ></div>
               <div
-                className={`w-6 h-0.5 bg-white transition-all duration-300 ease-in-out ${
-                  isMenuOpen ? "opacity-0" : ""
-                }`}
+                className={`w-6 h-0.5 bg-white transition-all duration-300 ease-in-out ${isMenuOpen ? "opacity-0" : ""
+                  }`}
               ></div>
               <div
-                className={`w-6 h-0.5 bg-white transition-all duration-300 ease-in-out ${
-                  isMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
-                }`}
+                className={`w-6 h-0.5 bg-white transition-all duration-300 ease-in-out ${isMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
+                  }`}
               ></div>
             </button>
           </div>
@@ -257,7 +288,7 @@ const Navbar = () => {
                 Contact Us
               </a>
 
-              <div className="relative inline-flex  group">
+              {/* <div className="relative inline-flex  group">
                 <div className="absolute  -inset-px bg-[#3B82F6] rounded-xl blur-sm group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt"></div>
 
                 <a
@@ -267,6 +298,33 @@ const Navbar = () => {
                   className="w-full cursor-pointer relative inline-flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 duration-200  bg-[#3B82F6] hover:bg-[#2563EB]  text-white px-6 py-2 rounded-lg "
                 >
                   Get in touch
+                </a>
+              </div> */}
+              <div className="group relative inline-flex">
+                <div className="absolute -inset-1 rounded-2xl bg-blue-500/40 blur-lg opacity-50 transition-all duration-500 group-hover:opacity-100"></div>
+
+                <a
+                  href="https://cal.com/pradeep-srinivasan/free-strategy-call"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl px-6 py-3 text-white
+      bg-gradient-to-b from-blue-400 to-blue-600
+      shadow-[inset_0_1px_0_0_rgba(255,255,255,0.35),0_8px_24px_-8px_rgba(59,130,246,0.8)]
+      transition-all duration-300 active:scale-95 focus:outline-none"
+                >
+                  <span className="pointer-events-none absolute inset-0 -translate-x-full skew-x-[-20deg] bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"></span>
+                  <span className="relative">Get in touch</span>
+                  <svg
+                    className="relative h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
                 </a>
               </div>
             </div>
