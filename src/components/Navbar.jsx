@@ -60,6 +60,7 @@ const Navbar = () => {
         }`}
     >
       <div className="md:max-w-[1300px] mx-auto bg-black/40 backdrop-blur-lg border border-white/15 shadow-lg rounded-2xl text-white px-5 py-3 md:py-4">
+        {/* <div className="md:max-w-[1400px] mx-auto rounded-2xl text-white px-5 py-3 md:py-4"> */}
         <div className=" flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-2">

@@ -1,38 +1,56 @@
 import React from "react";
-import BgVideo from "../assets/hero-bg-vid.webm";
 import BlurText from "./BlurText";
+import ShaderBackground from "./ShaderBackground";
+
+const GRAIN_SVG = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='1.8' intercept='-0.4'/%3E%3CfeFuncG type='linear' slope='1.8' intercept='-0.4'/%3E%3CfeFuncB type='linear' slope='1.8' intercept='-0.4'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
 
 const Hero = () => {
   return (
-    <div className="relative h-[90vh] md:h-screen w-full overflow-hidden">
-      {/* Background Video */}
-      <video
-        className="absolute top-0 left-0 w-full h-[100vh] object-cover brightness-100"
-        src={BgVideo}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
+    <div className="relative h-[90vh] md:h-screen w-full overflow-hidden bg-black">
+      {/* Grain animation styles */}
+      <style>{`
+        @keyframes grain-shift {
+          0%, 100% { background-position: 0 0; }
+          20% { background-position: -40px 30px; }
+          40% { background-position: 60px -50px; }
+          60% { background-position: -70px -20px; }
+          80% { background-position: 30px 60px; }
+        }
+        .hero-grain { animation: grain-shift 0.8s steps(1) infinite; }
+        @media (prefers-reduced-motion: reduce) {
+          .hero-grain { animation: none; }
+        }
+      `}</style>
+
+      {/* Shader background */}
+      <ShaderBackground className="absolute inset-0 h-full w-full" />
+
+      {/* Dark overlay: dims the shader so the text stays readable */}
+      <div
         aria-hidden="true"
-        title="Background abstract video"
+        className="pointer-events-none absolute inset-0 bg-black/35"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.35)_0%,transparent_70%)]"
       />
 
-      {/* Dark Overlay */}
-      {/* <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-blue-900/40 via-black/40 to-black"></div> */}
+      {/* Grain overlay */}
+      <div
+        aria-hidden="true"
+        className="hero-grain pointer-events-none absolute -inset-20 opacity-[0.6] mix-blend-overlay"
+        style={{
+          backgroundImage: GRAIN_SVG,
+          backgroundSize: "220px 220px",
+        }}
+      />
 
       {/* Content */}
       <div className="relative h-full w-full ">
         <div className="flex flex-col items-center justify-center h-full text-white text-center px-1">
-          {/* <div className="flex items-center justify-around gap-2 mb-6 font-sans-medium text-[12px] md:text-[16px] rounded-xl px-2 py-2 bg-white/8 backdrop-blur-lg border border-white/20 text-white/80">
-            <div className="bg-[#3B82F6] rounded-sm text-[10px] md:text-[12px] flex items-center justify-center">
-              <p className="px-2 py-1 font-sans-bold text-center">NO. 1</p>
-            </div>
-            <p className="font-sans-regular">AI-Powered Web Agency</p>
-          </div> */}
           {/* Badge */}
           <div className="mb-6 rounded-full p-px bg-gradient-to-r from-blue-500/70 via-white/20 to-cyan-400/60 shadow-[0_0_30px_-6px_rgba(59,130,246,0.6)]">
-            <div className="flex items-center gap-3 rounded-full bg-[#080b18]/80 backdrop-blur-xl pl-3 pr-5 py-1.5 text-[12px] md:text-[14px]">
+            <div className="flex items-center gap-3 rounded-full bg-[#080b18]/90 backdrop-blur-xl pl-3 pr-5 py-1.5 text-[12px] md:text-[14px]">
               {/* Pulsing dot */}
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75" />
@@ -42,9 +60,9 @@ const Hero = () => {
               <span className="font-sans-regular tracking-wide text-white/80">
                 AI-Powered Web Agency
               </span>
-
             </div>
           </div>
+
           <BlurText
             text="Run Your Business on Autopilot with AI That Works 24/7"
             delay={50}
@@ -60,32 +78,6 @@ const Hero = () => {
             className="text-md md:text-lg text-white/70  w-4/5 md:w-2/5 mb-8 md:mb-12 text-center mx-auto"
           />
 
-          {/* <div className="flex gap-4 md:gap-5 text-sm md:text-md z-30">
-            <div className="relative inline-flex  group">
-              <div className="absolute  -inset-px bg-[#3b83f6b6] rounded-xl blur-sm group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt"></div>
-
-              <a
-                href="https://cal.com/pradeep-srinivasan/free-strategy-call"
-                className="z-1 bg-[#3b83f6d8] hover:opacity-75 transition-all duration-700 cursor-pointer text-md md:text-lg text-white font-sans-medium px-6 py-3 rounded-lg shadow-lg"
-              >
-                Book a 15-min call
-              </a>
-            </div>
-            <a
-              onClick={(e) => {
-                e.preventDefault();
-                const el = document.getElementById("works");
-                if (el) {
-                  const y =
-                    el.getBoundingClientRect().top + window.pageYOffset - 100;
-                  window.scrollTo({ top: y, behavior: "smooth" });
-                }
-              }}
-              className="bg-white hover:opacity-75 transition-all duration-700 cursor-pointer text-black text-md md:text-lg px-6 py-3 font-sans-medium rounded-lg shadow-lg"
-            >
-              View Works
-            </a>
-          </div> */}
           <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 z-30">
             {/* Primary CTA */}
             <div className="group relative inline-flex">
@@ -126,7 +118,8 @@ const Hero = () => {
                 e.preventDefault();
                 const el = document.getElementById("works");
                 if (el) {
-                  const y = el.getBoundingClientRect().top + window.pageYOffset - 100;
+                  const y =
+                    el.getBoundingClientRect().top + window.pageYOffset - 100;
                   window.scrollTo({ top: y, behavior: "smooth" });
                 }
               }}
