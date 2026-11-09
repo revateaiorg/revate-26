@@ -30,7 +30,7 @@ const Contact = () => {
 
       case "last_name":
         if (!value.trim()) return "Last name is required";
-        if (value.length < 2) return "Last name must be at least 2 characters";
+        if (value.length < 1) return "Last name must be at least 1 characters";
         if (!/^[a-zA-Z\s]+$/.test(value))
           return "Last name can only contain letters";
         return "";
@@ -249,7 +249,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="font-content text-white">
+    <section id="contact" className="font-content text-white pb-20 md:pb-28">
       <div className="mx-auto mt-26 grid w-[calc(100%-40px)] max-w-7xl gap-10 min-[600px]:w-[calc(100%-48px)] min-[900px]:grid-cols-[0.9fr_1.1fr] min-[900px]:items-start min-[900px]:gap-12">
         {/* Left: heading and direct contact details */}
         {/* <div className="w-full h-full p-1 md:p-8 rounded-3xl border border-white/10 bg-[#080808]  sm:p-2"> */}
@@ -257,10 +257,10 @@ const Contact = () => {
           className="relative overflow-hidden min-h-[480px] min-[900px]:min-h-0 w-full h-full p-6 md:p-8 rounded-3xl border border-blue-400/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_30px_80px_-40px_rgba(37,99,235,0.6)] sm:p-5"
           style={{
             background: `
-      radial-gradient(70% 45% at 0% 0%, rgba(37,99,235,0.30), transparent 60%),
-      radial-gradient(80% 50% at 15% 100%, rgba(37,99,235,0.40), transparent 65%),
-      linear-gradient(165deg, #0B1535 0%, #070C1F 50%, #05070F 100%)
-    `,
+            radial-gradient(70% 45% at 0% 0%, rgba(37,99,235,0.30), transparent 60%),
+            radial-gradient(80% 50% at 15% 100%, rgba(37,99,235,0.40), transparent 65%),
+            linear-gradient(165deg, #0B1535 0%, #070C1F 50%, #05070F 100%)
+          `,
           }}
         >          <div className="relative z-10">
             <SectionHeading dark label="Contact us" title="Let's Start with" accent="your idea next" description="Share your goals, challenges, or ideas with us. Let's explore how we can work together to create meaningful solutions for your business." />
