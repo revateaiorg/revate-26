@@ -1,5 +1,16 @@
 # React + Vite
 
+## Contact form
+
+The form sends first name, last name, email, country code, mobile number, and message to `POST /api/contact`. The server validates and normalizes values, then posts an embed to Discord with mentions disabled and waits for delivery confirmation.
+
+- Set `DISCORD_WEBHOOK_URL` in `.env.local` for development (`.env.example` shows the format). The supplied webhook is configured locally; `.env.local` is ignored by Git.
+- Run `npm run dev` for the website and contact endpoint together.
+- Deploy this repository to Vercel using the **Vite** framework preset, `npm run build` as the build command, and `dist` as the output directory. Vercel automatically deploys `api/contact.mjs` as a function at `/api/contact`; no separate backend or server process is needed.
+- In Vercel → Project Settings → Environment Variables, add **`DISCORD_WEBHOOK_URL`** with your complete Discord webhook URL. Enable it for Production (and Preview if needed), then redeploy so the function receives it. Keep this variable server-only; do not add a `VITE_` prefix.
+- The browser makes a simple JSON POST to `/api/contact`; the Vercel function forwards it to Discord. `npm run dev` also runs the endpoint locally. `vite preview` only previews the static build.
+- Run `npm run test:contact` to check normalization, validation, and Discord success/failure handling using a mocked webhook.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

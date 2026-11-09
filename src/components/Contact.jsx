@@ -1,216 +1,96 @@
 import React, { useRef, useState } from "react";
 import SectionHeading from "./SectionHeading";
-import CountrySelector from "./CountrySelector";
-import { Mail, Phone } from "lucide-react";
-import emailjs from "@emailjs/browser";
-import CurrencySelector from "./CurrencySelector";
+import { ArrowUpRight, Check, Mail, Phone } from "lucide-react";
 import Globe from "./Globe";
+import PhoneInput from "./PhoneInput";
+import { splitInternationalPhone } from "../lib/phone";
+import { contactFields, normalizeField, validateField, validateContact } from "../lib/contact";
 
 const Contact = () => {
   const form = useRef();
   const [loading, setLoading] = useState(false);
-  const [country, setCountry] = useState("");
-  const [currency, setCurrency] = useState("₹");
   const [success, setSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [messageLength, setMessageLength] = useState(0);
-
-  // Form validation state
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
+  const submitting = useRef(false);
 
-  // Validation rules
-  const validateField = (name, value) => {
-    switch (name) {
-      case "from_name":
-        if (!value.trim()) return "First name is required";
-        if (value.length < 2) return "First name must be at least 2 characters";
-        if (!/^[a-zA-Z\s]+$/.test(value))
-          return "First name can only contain letters";
-        return "";
-
-      case "last_name":
-        if (!value.trim()) return "Last name is required";
-        if (value.length < 1) return "Last name must be at least 1 characters";
-        if (!/^[a-zA-Z\s]+$/.test(value))
-          return "Last name can only contain letters";
-        return "";
-
-      case "email_id": {
-        if (!value.trim()) return "Email is required";
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(value))
-          return "Please enter a valid email address";
-        return "";
-      }
-
-      case "phone_no":
-        // Phone is optional — only validate format if user typed something
-        if (value.trim()) {
-          const phoneRegex = /^[0-9]{7,15}$/;
-          if (!phoneRegex.test(value.replace(/\s/g, "")))
-            return "Please enter a valid mobile number (7-15 digits)";
-        }
-        return "";
-
-      case "budget":
-        // Budget is optional, only validate if value is provided
-        if (value.trim() && (isNaN(value) || parseFloat(value) <= 0))
-          return "Please enter a valid budget amount";
-        return "";
-
-      case "message":
-        if (!value.trim()) return "Message is required";
-        if (value.length < 10) return "Message must be at least 10 characters";
-        if (value.length > 1000)
-          return "Message must be less than 1000 characters";
-        return "";
-
-      case "country":
-        // Country is optional, no validation needed
-        return "";
-
-      //   case "currency":
-      //     if (!currency) return "Please select currency";
-      //     return "";
-
-      default:
-        return "";
-    }
-  };
-
-  // Handle input change with validation
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
-    // Update touched state
+    setSuccess(false);
+    setSubmitError("");
     setTouched((prev) => ({ ...prev, [name]: true }));
-
-    if (name === "message") {
-      setMessageLength(value.length);
-    }
-
-    // Validate field
-    const error = validateField(name, value);
-    setErrors((prev) => ({ ...prev, [name]: error }));
+    if (name === "message") setMessageLength(value.length);
+    setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
   };
 
-  // Handle blur event
   const handleBlur = (e) => {
-    const { name, value } = e.target;
-    setTouched((prev) => ({ ...prev, [name]: true }));
-    const error = validateField(name, value);
-    setErrors((prev) => ({ ...prev, [name]: error }));
+    e.target.value = normalizeField(e.target.name, e.target.value);
+    handleInputChange(e);
   };
 
-  // Handle country selection
-  const handleCountryChange = (selectedCountry) => {
-    setCountry(selectedCountry);
-    setTouched((prev) => ({ ...prev, country: true }));
-    const error = validateField("country", selectedCountry);
-    setErrors((prev) => ({ ...prev, country: error }));
-  };
-
-  // Handle currency selection
-  const handleCurrencyChange = (selectedCurrency) => {
-    setCurrency(selectedCurrency);
-    setTouched((prev) => ({ ...prev, currency: true }));
-    const error = validateField("currency", selectedCurrency);
-    setErrors((prev) => ({ ...prev, currency: error }));
-  };
-
-  // Validate entire form
-  const validateForm = () => {
-    const formData = new FormData(form.current);
-    const newErrors = {};
-    let isValid = true;
-
-    // Validate all fields
-    const fields = [
-      "from_name",
-      "last_name",
-      "email_id",
-      "phone_no",
-      "budget",
-      "message",
-    ];
-    fields.forEach((field) => {
-      const value = formData.get(field) || "";
-      const error = validateField(field, value);
-      if (error) {
-        newErrors[field] = error;
-        isValid = false;
-      }
-    });
-
-    // Country and currency are optional, no validation needed
-
-    setErrors(newErrors);
-
-    // Mark all fields as touched
-    const touchedFields = {};
-    fields.forEach((field) => (touchedFields[field] = true));
-    touchedFields.country = true;
-    touchedFields.currency = true;
-    setTouched(touchedFields);
-
-    return isValid;
-  };
-
-  const sendEmail = (e) => {
+  const handlePaste = (e) => {
+    const pasted = e.clipboardData.getData("text");
     e.preventDefault();
+    const input = e.currentTarget;
+    const start = input.selectionStart ?? 0;
+    const end = input.selectionEnd ?? input.value.length;
+    input.value = normalizeField(input.name, input.value.slice(0, start) + pasted + input.value.slice(end));
+    handleInputChange({ target: input });
+  };
 
-    // Validate form before submission
-    if (!validateForm()) {
+  const sendMessage = async (e) => {
+    e.preventDefault();
+    if (submitting.current) return;
+    setSuccess(false);
+    setSubmitError("");
+    const data = new FormData(form.current);
+    const internationalPhone = splitInternationalPhone(data.get("phone_no"));
+    if (internationalPhone) {
+      data.set("country_code", internationalPhone.countryCode);
+      data.set("phone_no", internationalPhone.number);
+    }
+    const values = Object.fromEntries(contactFields.map((name) => {
+      const value = normalizeField(name, data.get(name));
+      form.current.elements.namedItem(name).value = value;
+      return [name, value];
+    }));
+    setMessageLength(values.message.length);
+    const newErrors = validateContact(values);
+    setErrors(newErrors);
+    setTouched(Object.fromEntries(contactFields.map((name) => [name, true])));
+    if (Object.keys(newErrors).length) {
+      form.current.elements.namedItem(Object.keys(newErrors)[0]).focus();
       return;
     }
-
+    submitting.current = true;
     setLoading(true);
-
-    // Gather form data explicitly so we control exactly what EmailJS receives
-    const formData = new FormData(form.current);
-    const userEmail = formData.get("email_id") || "";
-    const templateParams = {
-      from_name: formData.get("from_name") || "",
-      last_name: formData.get("last_name") || "",
-      email_id: userEmail,
-      email: userEmail,
-      reply_to: userEmail,
-      to_email: userEmail,
-      phone_no: formData.get("phone_no") || "Not provided",
-      country: formData.get("country") || "Not provided",
-      currency: formData.get("currency") || "",
-      budget: formData.get("budget") || "Not provided",
-      message: formData.get("message") || "",
-    };
-
-    const emailjsOptions = { publicKey: "urpLnZFdquq6gQnnm" };
-
-    // Send auto-reply "thank you" to the lead
-    // TODO: Add second emailjs.send() for owner notification once template is created
-    emailjs.send("service_vnxnr9n", "template_4f39rse", templateParams, emailjsOptions)
-      .then(
-        () => {
-          setLoading(false);
-          setSuccess(true);
-          form.current.reset();
-          setCountry("");
-          setCurrency("");
-          setErrors({});
-          setTouched({});
-          setMessageLength(0);
-        },
-        (error) => {
-          console.log("EmailJS error:", error);
-          setLoading(false);
-          alert("Something went wrong. Try again!");
-        }
-      );
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+        signal: AbortSignal.timeout(20000),
+      });
+      if (!response.ok) throw new Error("Unable to send your message. Please try again shortly.");
+      setSuccess(true);
+      form.current.reset();
+      setErrors({});
+      setTouched({});
+      setMessageLength(0);
+    } catch {
+      setSubmitError("Unable to send your message. Please try again shortly or contact us by email.");
+    } finally {
+      submitting.current = false;
+      setLoading(false);
+    }
   };
 
   // Helper function to get input class names
   const getInputClassName = (fieldName) => {
     const baseClass =
-      "border bg-white/4 p-4 w-full rounded-md transition-colors duration-200";
+      "contact-input border bg-white/4 p-4 w-full min-w-0 rounded-md transition-colors duration-200";
     const hasError = errors[fieldName] && touched[fieldName];
     return hasError
       ? `${baseClass} border-red-500 focus:border-red-500`
@@ -235,16 +115,12 @@ const Contact = () => {
 
   const fieldRows = [
     [
-      { name: "from_name", label: "First name", placeholder: "John", required: true },
-      { name: "last_name", label: "Last name", placeholder: "Doe", required: true },
+      { name: "from_name", label: "First name", placeholder: "John", autoComplete: "given-name", maxLength: 80 },
+      { name: "last_name", label: "Last name", placeholder: "Doe", autoComplete: "family-name", maxLength: 80 },
     ],
     [
-      { name: "email_id", label: "Your email", placeholder: "johndoe@gmail.com", type: "email", required: true },
-      { name: "country", label: "Where are you from?", custom: "country" },
-    ],
-    [
-      { name: "phone_no", label: "Mobile Number", placeholder: "Enter mobile number (without country code)" },
-      { name: "budget", label: "What's your budget?", placeholder: "Enter your budget", custom: "currency" },
+      { name: "email_id", label: "Your email", placeholder: "you@example.com", type: "email", autoComplete: "email", maxLength: 254 },
+      { name: "phone_no", label: "Mobile number", custom: "phone" },
     ],
   ];
 
@@ -291,56 +167,65 @@ const Contact = () => {
 
         {/* Right: the enquiry form */}
         <div className="w-full rounded-3xl border border-white/10 bg-[#080808] p-1.5 sm:p-2">
+          {success ? (
+            <div role="status" aria-live="polite" className="flex min-h-[460px] flex-col items-start justify-center px-6 py-12 sm:px-10">
+              <span className="mb-7 grid size-12 place-items-center rounded-full border border-blue-400/20 bg-blue-400/10 text-blue-400">
+                <Check size={24} strokeWidth={1.8} aria-hidden="true" />
+              </span>
+              <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-blue-400">Message received</p>
+              <h3 className="max-w-sm text-3xl font-medium tracking-tight text-white">Thanks for reaching out.</h3>
+              <p className="mt-4 max-w-sm text-sm leading-7 text-white/55">We've received your message. Our team will be in touch soon to talk about your idea.</p>
+              <button type="button" onClick={() => setSuccess(false)} className="mt-8 inline-flex cursor-pointer items-center gap-2 border-b border-white/20 pb-2 text-sm font-medium text-white/80 transition-colors hover:border-blue-400 hover:text-blue-400">
+                Send another message <ArrowUpRight size={16} aria-hidden="true" />
+              </button>
+            </div>
+          ) : (
           <form
             ref={form}
-            onSubmit={sendEmail}
+            onSubmit={sendMessage}
             noValidate
             className="flex flex-col space-y-6 p-4 md:p-8"
           >
             {fieldRows.map((row) => (
-              <div key={row.map((f) => f.name).join("-")} className="flex flex-col gap-6 min-[1100px]:flex-row">
+              <div key={row.map((f) => f.name).join("-")} className="grid grid-cols-1 gap-5 min-[600px]:grid-cols-2 min-[900px]:grid-cols-1 min-[1100px]:grid-cols-2">
                 {row.map((field) => (
-                  <div key={field.name} className="flex w-full flex-col space-y-2">
-                    {field.custom ? (
-                      <span>
-                        {field.label}
-                        {field.required ? <span className="text-red-500"> *</span> : null}
-                      </span>
-                    ) : (
-                      <label htmlFor={`contact-${field.name}`}>
-                        {field.label} {field.required && <span className="text-red-500">*</span>}
-                      </label>
-                    )}
-
-                    {field.custom === "country" ? (
-                      <CountrySelector value={country} onChange={handleCountryChange} />
-                    ) : field.custom === "currency" ? (
-                      <div className="relative flex">
-                        <CurrencySelector value={currency} onChange={handleCurrencyChange} />
-                        <input
-                          id={`contact-${field.name}`}
-                          type="text"
-                          name={field.name}
-                          placeholder={field.placeholder}
-                          className={getInputClassName(field.name)}
-                          onChange={handleInputChange}
-                          onBlur={handleBlur}
-                        />
-                      </div>
-                    ) : (
-                      <input
-                        id={`contact-${field.name}`}
-                        type={field.type || "text"}
-                        name={field.name}
-                        placeholder={field.placeholder}
-                        className={getInputClassName(field.name)}
+                  <div key={field.name} className="flex min-w-0 w-full flex-col space-y-2">
+                    <label htmlFor={`contact-${field.name}`}>
+                      {field.label} <span className="text-red-500">*</span>
+                    </label>
+                    {field.custom === "phone" ? (
+                      <PhoneInput
+                        disabled={loading}
+                        errors={errors}
+                        touched={touched}
                         onChange={handleInputChange}
                         onBlur={handleBlur}
                       />
+                    ) : (
+                    <input
+                      id={`contact-${field.name}`}
+                      type={field.type || "text"}
+                      name={field.name}
+                      placeholder={field.placeholder}
+                      autoComplete={field.autoComplete}
+                      defaultValue={field.defaultValue}
+                      maxLength={field.maxLength}
+                      required
+                      disabled={loading}
+                      aria-invalid={Boolean(errors[field.name] && touched[field.name])}
+                      aria-describedby={errors[field.name] ? `error-${field.name}` : undefined}
+                      className={getInputClassName(field.name)}
+                      onChange={handleInputChange}
+                      onPaste={handlePaste}
+                      onBlur={handleBlur}
+                    />
+                    )}
+                    {field.custom === "phone" && errors.country_code && touched.country_code && (
+                      <p id="error-country_code" className="text-sm text-red-400">{errors.country_code}</p>
                     )}
 
                     {errors[field.name] && touched[field.name] && (
-                      <p className="text-sm text-red-400">{errors[field.name]}</p>
+                      <p id={`error-${field.name}`} className="text-sm text-red-400">{errors[field.name]}</p>
                     )}
                   </div>
                 ))}
@@ -354,12 +239,17 @@ const Contact = () => {
               <textarea
                 id="contact-message"
                 name="message"
+                required
+                disabled={loading}
+                aria-invalid={Boolean(errors.message && touched.message)}
+                aria-describedby="contact-message-help"
+                onPaste={handlePaste}
                 placeholder="Type your message here..."
-                className={`${getInputClassName("message")} h-32 resize-none`}
+                className={`${getInputClassName("message")} h-50 resize-none`}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
               />
-              <div className="flex items-center justify-between gap-3">
+              <div id="contact-message-help" className="flex items-center justify-between gap-3">
                 {errors.message && touched.message ? (
                   <p className="text-sm text-red-400">{errors.message}</p>
                 ) : null}
@@ -367,25 +257,20 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="relative w-full group">
-              <div className="absolute -inset-0 rounded-xl bg-[#3B82F6] blur-sm transition-all group-hover:-inset-1 group-hover:duration-200"></div>
-              <button
-                type="submit"
-                disabled={loading}
-                className="relative inline-flex w-full cursor-pointer items-center justify-center rounded-lg bg-[#3B82F6] px-8 py-3 text-white transition-all duration-200 hover:bg-[#2563EB] focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                {loading ? "Sending..." : "Submit"}
-              </button>
-            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#3B82F6] px-6 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[#2563EB] focus-visible:outline-blue-400 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {loading ? "Sending..." : "Send message"}
+              {!loading && <ArrowUpRight size={17} aria-hidden="true" />}
+            </button>
 
-            {success && (
-              <div className="rounded-lg border border-green-500/30 bg-green-500/20 p-4">
-                <p className="text-center font-medium text-green-400">
-                  Message Sent Successfully! We'll get back to you soon.
-                </p>
-              </div>
+            {submitError && (
+              <p role="alert" className="rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-red-400">{submitError}</p>
             )}
           </form>
+          )}
         </div>
       </div>
     </section>

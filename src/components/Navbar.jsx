@@ -41,6 +41,9 @@ const ArrowIcon = ({ className = "h-4 w-4" }) => (
 /*  which would otherwise trap a `fixed` child inside the navbar box. */
 /* ------------------------------------------------------------------ */
 const MobileMenu = ({ isOpen, onClose, onNavigate }) => {
+  // Portals require a real browser DOM and cannot be pre-rendered.
+  if (import.meta.env.SSR) return null;
+
   const reveal = (i, base = 180) => ({
     transitionDelay: isOpen ? `${base + i * 70}ms` : "0ms",
   });

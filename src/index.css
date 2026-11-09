@@ -110,3 +110,33 @@ body::-webkit-scrollbar {
   display: none;
   /* Chrome, Safari, Edge */
 }
+
+/* Keep saved-profile autofill and text selection in the contact form blue. */
+.contact-input::selection {
+  background: #2563eb;
+  color: #fff;
+}
+
+.contact-input:autofill,
+.contact-input:autofill:hover,
+.contact-input:autofill:focus {
+  background-color: #102a50 !important;
+  box-shadow: 0 0 0 1000px #102a50 inset !important;
+  color: #fff !important;
+  caret-color: #60a5fa;
+}
+
+.contact-input:-webkit-autofill,
+.contact-input:-webkit-autofill:hover,
+.contact-input:-webkit-autofill:focus,
+.contact-input:-webkit-autofill:active {
+  -webkit-text-fill-color: #fff !important;
+  -webkit-box-shadow: 0 0 0 1000px #102a50 inset !important;
+  caret-color: #60a5fa;
+}
+
+.contact-phone:has(input:autofill),
+.contact-phone:has(select:autofill) {
+  background-color: #102a50;
+  border-color: #3b82f6;
+}
