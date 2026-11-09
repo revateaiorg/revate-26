@@ -166,9 +166,9 @@ const Contact = () => {
         </div>
 
         {/* Right: the enquiry form */}
-        <div className="w-full rounded-3xl border border-white/10 bg-[#080808] p-1.5 sm:p-2">
-          {success ? (
-            <div role="status" aria-live="polite" className="flex min-h-[460px] flex-col items-start justify-center px-6 py-12 sm:px-10">
+        <div className="relative w-full rounded-3xl border border-white/10 bg-[#080808] p-1.5 sm:p-2">
+          {success && (
+            <div role="status" aria-live="polite" className="absolute inset-0 flex flex-col items-start justify-center px-6 py-12 sm:px-10">
               <span className="mb-7 grid size-12 place-items-center rounded-full border border-blue-400/20 bg-blue-400/10 text-blue-400">
                 <Check size={24} strokeWidth={1.8} aria-hidden="true" />
               </span>
@@ -179,12 +179,16 @@ const Contact = () => {
                 Send another message <ArrowUpRight size={16} aria-hidden="true" />
               </button>
             </div>
-          ) : (
+          )}
+          {/* Preserve the form's responsive height while showing confirmation. */}
           <form
+            key={success ? "sent" : "editing"}
             ref={form}
             onSubmit={sendMessage}
             noValidate
-            className="flex flex-col space-y-6 p-4 md:p-8"
+            inert={success}
+            aria-hidden={success}
+            className={`flex flex-col space-y-6 p-4 md:p-8 ${success ? "invisible" : ""}`}
           >
             {fieldRows.map((row) => (
               <div key={row.map((f) => f.name).join("-")} className="grid grid-cols-1 gap-5 min-[600px]:grid-cols-2 min-[900px]:grid-cols-1 min-[1100px]:grid-cols-2">
@@ -270,7 +274,6 @@ const Contact = () => {
               <p role="alert" className="rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-red-400">{submitError}</p>
             )}
           </form>
-          )}
         </div>
       </div>
     </section>
