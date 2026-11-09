@@ -226,8 +226,8 @@ const Contact = () => {
     },
     {
       key: "email",
-      href: "https://mail.google.com/mail/?view=cm&fs=1&to=revateaiorg@gmail.com",
-      label: "revateaiorg@gmail.com",
+      href: "https://mail.google.com/mail/?view=cm&fs=1&to=revateai.org@gmail.com",
+      label: "revateai.org@gmail.com",
       icon: Mail,
       external: true,
     },

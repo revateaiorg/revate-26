@@ -117,7 +117,7 @@ const Preloader = ({ onComplete, duration = 2800 }) => {
         className="select-none text-white"
         style={{
           fontFamily: '"DM Sans", sans-serif',
-          fontSize: "clamp(56px, 14vw, 150px)",
+          fontSize: "clamp(56px, 14vw, 100px)",
           fontWeight: 300,
           lineHeight: 1,
           fontVariantNumeric: "tabular-nums",

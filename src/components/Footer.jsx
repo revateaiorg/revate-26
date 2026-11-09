@@ -219,7 +219,7 @@ const Footer = () => {
           <span
             className="font-black uppercase leading-none select-none whitespace-nowrap"
             style={{
-              fontSize: 'clamp(80px, 20vw, 350px)',
+              fontSize: 'clamp(80px, 20vw, 280px)',
               letterSpacing: '-0.02em',
               color: 'white',
               WebkitTextStroke: '2px rgba(255,255,255,0.15)',

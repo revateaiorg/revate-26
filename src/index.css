@@ -32,32 +32,81 @@
   --animate-marquee: marquee 40s linear infinite;
 
   @keyframes spine-flow {
-    from { top: -80px; }
-    to { top: 100%; }
+    from {
+      top: -80px;
+    }
+
+    to {
+      top: 100%;
+    }
   }
+
   @keyframes finish-flow {
-    from { left: -60px; }
-    to { left: 100%; }
+    from {
+      left: -60px;
+    }
+
+    to {
+      left: 100%;
+    }
   }
+
   @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
   }
 }
 
 /* Browser defaults only. Section appearance lives in JSX utility classes. */
 @layer base {
-  html { scroll-behavior: smooth; scroll-padding-top: 110px; }
-  body { margin: 0; font-family: var(--font-sans); }
-  section[id] { scroll-margin-top: 100px; }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 110px;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+  }
+
+  section[id] {
+    scroll-margin-top: 100px;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 5px;
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    *, *::before, *::after {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
       animation-duration: .01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: .01ms !important;
     }
   }
+}
+
+html {
+  -ms-overflow-style: none;
+  /* old Edge/IE */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Edge */
 }
