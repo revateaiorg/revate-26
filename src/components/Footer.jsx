@@ -22,8 +22,8 @@ const Footer = () => {
 
             {/* Description */}
             <p className="text-gray-300 text-md leading-relaxed max-w-[400px] font-sans">
-              Your trusted partner in Web & AI solutions, creating smarter
-              systems for smarter businesses.
+              Revate AI is an AI automation and web development agency based in Chennai, Tamil Nadu, India.
+              We build voice receptionists, chatbots, n8n workflows, websites, and digital experiences.
             </p>
 
             {/* Social Media Icons */}
@@ -72,7 +72,7 @@ const Footer = () => {
               <ul className="space-y-3">
                 <li>
                   <a
-                    href="#about"
+                    href="#services"
                     className="hover:text-gray-300 transition-colors"
                   >
                     Web Development
@@ -80,7 +80,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <a
-                    href="#about"
+                    href="#services"
                     className="hover:text-gray-300 transition-colors"
                   >
                     AI Automation
@@ -88,15 +88,15 @@ const Footer = () => {
                 </li>
                 <li>
                   <a
-                    href="#about"
+                    href="#services"
                     className="hover:text-gray-300 transition-colors"
                   >
-                    UI UX Designing
+                    UI/UX Design
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#about"
+                    href="#services"
                     className="hover:text-gray-300 transition-colors"
                   >
                     AI Chatbot Development
@@ -104,7 +104,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <a
-                    href="#about"
+                    href="#services"
                     className="hover:text-gray-300 transition-colors"
                   >
                     SEO
@@ -207,7 +207,7 @@ const Footer = () => {
         <div className="border-t border-white/10 pt-8">
           <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
             <p className="text-gray-400 text-sm">
-              © 2026 RevateAI. All rights reserved.
+              © 2026 Revate AI. All rights reserved.
             </p>
           </div>
         </div>

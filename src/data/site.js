@@ -1,0 +1,21 @@
+export const site = {
+  name: "Revate AI",
+  alternateName: ["revate ai", "RevateAI"],
+  url: "https://www.revateai.com/",
+  title: "Revate AI | AI Automation & Web Development in Chennai",
+  description: "Revate AI is an AI automation and web development agency in Chennai, Tamil Nadu. We build voice receptionists, chatbots, n8n workflows, and custom websites.",
+  keywords: ["Revate AI", "revate ai Chennai", "AI automation Chennai", "web development Chennai", "AI agency Tamil Nadu", "AI voice receptionist", "n8n workflow automation", "AI chatbot development", "UI/UX design Chennai"],
+  location: { city: "Chennai", region: "Tamil Nadu", country: "India", countryCode: "IN", regionCode: "IN-TN" },
+  email: "revateai.org@gmail.com",
+  phone: "+919962713368",
+  phoneLabel: "+91 9962713368",
+  bookingUrl: "https://cal.com/pradeep-srinivasan/free-strategy-call",
+  image: "social-preview.png",
+  imageAlt: "Revate AI — AI automation and web development. Voice agents, workflows, chatbots, and websites.",
+  sameAs: [
+    "https://www.linkedin.com/company/revate/",
+    "https://x.com/revate",
+    "https://www.instagram.com/revateai/",
+    "https://www.facebook.com/people/Revate-AI/pfbid0k3hF5pM4v8hcEQEi2PsAZPrXSMyqaSZr3a7FrUZxa4RoNSCu4zAFAHspwraUoEovl/",
+  ],
+};

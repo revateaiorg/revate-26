@@ -103,6 +103,7 @@ const Preloader = ({ onComplete, duration = 2800 }) => {
 
   return (
     <div
+      data-preloader="true"
       role="status"
       aria-label="Loading"
       className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#020308]"

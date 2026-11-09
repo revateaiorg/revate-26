@@ -3,6 +3,7 @@ import SectionHeading from "./SectionHeading";
 import { ArrowUpRight, Check, Mail, Phone } from "lucide-react";
 import Globe from "./Globe";
 import PhoneInput from "./PhoneInput";
+import { site } from "../data/site";
 import { splitInternationalPhone } from "../lib/phone";
 import { contactFields, normalizeField, validateField, validateContact } from "../lib/contact";
 
@@ -100,8 +101,8 @@ const Contact = () => {
   const contactLinks = [
     {
       key: "phone",
-      href: "tel:+919344240280",
-      label: "+91 9962713368",
+      href: `tel:${site.phone}`,
+      label: site.phoneLabel,
       icon: Phone,
     },
     {

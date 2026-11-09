@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#18d1ff"/><stop offset="1" stop-color="#2563eb"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#154bb6" stop-opacity=".4"/><stop offset="1" stop-color="#050914" stop-opacity="0"/></radialGradient>
+    <linearGradient id="fade"><stop stop-color="#60a5fa" stop-opacity="0"/><stop offset="1" stop-color="#60a5fa" stop-opacity=".22"/></linearGradient>
+    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse"><path d="M56 0H0V56" fill="none" stroke="#93c5fd" stroke-opacity=".045"/></pattern>
+  </defs>
+  <rect width="1200" height="630" fill="#050914"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <ellipse cx="1100" cy="300" rx="590" ry="490" fill="url(#glow)"/>
+  <g fill="none" stroke="url(#fade)">
+    <circle cx="1060" cy="310" r="270"/><circle cx="1060" cy="310" r="215"/><circle cx="1060" cy="310" r="145"/>
+    <ellipse cx="1060" cy="310" rx="100" ry="270"/><path d="M820 220H1200M800 380H1200M1060 40V580"/>
+    <path d="M880 180L1060 310L960 505M1060 310L1180 185" stroke="#3b82f6" stroke-opacity=".35"/>
+  </g>
+  <g fill="#60a5fa"><circle cx="880" cy="180" r="4"/><circle cx="1060" cy="310" r="7"/><circle cx="960" cy="505" r="4"/><circle cx="1180" cy="185" r="4"/></g>
+  <circle cx="1060" cy="310" r="16" fill="none" stroke="#3b82f6" stroke-opacity=".3"/>
+  <svg x="72" y="60" width="54" height="30" viewBox="69 239 699 368">
+    <path fill="url(#blue)" d="M172 240H638L766 370H310ZM275 410H503L310 605H70ZM540 460H766L618 605H382Z"/>
+  </svg>
+  <g font-family="Inter, Arial, sans-serif">
+    <text x="144" y="88" font-size="34" font-weight="650" fill="#f8fafc" letter-spacing="-1">Revate AI</text>
+    <text x="72" y="222" font-size="13" font-weight="600" letter-spacing="3" fill="#93c5fd">BUILT AROUND YOUR BUSINESS</text>
+    <text x="67" y="316" font-size="78" font-weight="650" letter-spacing="-3" fill="#f8fafc">AI automation.</text>
+    <text x="67" y="407" font-size="78" font-weight="650" letter-spacing="-3" fill="#60a5fa">Web development.</text>
+    <text x="72" y="462" font-size="23" fill="#a8b7cc">Voice agents, chatbots, and connected workflows.</text>
+    <path d="M72 529H1128" stroke="#8eb4eb" stroke-opacity=".17"/>
+    <text x="72" y="574" font-size="19" font-weight="500" fill="#d0dcf0">www.revateai.com</text>
+    <text x="1128" y="574" text-anchor="end" font-size="14" fill="#7d94b5">Thoughtfully built. Better connected.</text>
+  </g>
+</svg>

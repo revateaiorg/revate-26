@@ -5,11 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node prerender.js",
+    "build": "npm run seo:sync && vite build && node prerender.js && npm run check:seo",
     "build:csr": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test:contact": "node --test tests/contact.test.mjs"
+    "test:contact": "node --test tests/contact.test.mjs",
+    "check:seo": "node scripts/check-seo.mjs",
+    "seo:sync": "node scripts/sync-seo.mjs"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",

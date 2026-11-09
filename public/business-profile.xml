@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Factual business data for XML consumers. This is not a search-engine sitemap or a ranking directive. -->
+<businessProfile xml:lang="en-IN">
+  <name>Revate AI</name>
+  <website>https://www.revateai.com/</website>
+  <description>Revate AI is an AI automation and web development agency in Chennai, Tamil Nadu. We build voice receptionists, chatbots, n8n workflows, and custom websites.</description>
+  <location>
+    <city>Chennai</city>
+    <region code="IN-TN">Tamil Nadu</region>
+    <country code="IN">India</country>
+  </location>
+  <contact><email>revateai.org@gmail.com</email><telephone>+919962713368</telephone></contact>
+  <services>
+    <service><name>AI voice receptionists</name><url>https://www.revateai.com/#ai-voice-receptionists</url></service>
+    <service><name>AI workflow automation</name><url>https://www.revateai.com/#workflow-automation</url></service>
+    <service><name>AI chatbots</name><url>https://www.revateai.com/#ai-chatbots</url></service>
+    <service><name>Custom web development</name><url>https://www.revateai.com/#web-development</url></service>
+    <service><name>UI/UX design</name><url>https://www.revateai.com/#ui-ux-design</url></service>
+  </services>
+  <socialPreview width="1200" height="630">https://www.revateai.com/social-preview.png</socialPreview>
+  <sitemap>https://www.revateai.com/sitemap.xml</sitemap>
+</businessProfile>

@@ -84,8 +84,8 @@ function ProjectCard({ p }) {
         {/* Image Section */}
         <div
           className="relative w-full md:w-2/5 h-48 md:h-[55vh] overflow-hidden rounded-3xl border border-white/10 bg-cover bg-center shadow-[0_20px_50px_-20px_rgba(0,0,0,0.8)]"
-          style={{ backgroundImage: `url(${p.image})` }}
         >
+          <img src={p.image} alt={`${p.title} project by Revate AI`} loading="lazy" decoding="async" width="1200" height="800" className="absolute inset-0 h-full w-full object-cover" />
           {/* soft blue-black fade at the bottom + glass edge */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#070C1F]/55 via-transparent to-transparent" />
           <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />
@@ -105,12 +105,12 @@ function ProjectCard({ p }) {
           <div className="relative space-y-4">
             <div className="flex w-fit items-center gap-2 rounded-lg border border-blue-300/30 bg-gradient-to-b from-[#3B82F6] to-[#2563EB] px-3 py-1 shadow-[0_0_20px_rgba(59,130,246,0.45)]">
               <span className="size-1.5 rounded-full bg-white/90" />
-              <h1 className="text-sm md:text-md font-medium">{p.year}</h1>
+              <time dateTime={p.year} className="text-sm md:text-md font-medium">{p.year}</time>
             </div>
 
-            <h1 className="bg-gradient-to-b from-white to-blue-100/70 bg-clip-text text-2xl font-semibold text-transparent md:text-4xl">
+            <h3 className="bg-gradient-to-b from-white to-blue-100/70 bg-clip-text text-2xl font-semibold text-transparent md:text-4xl">
               {p.title}
-            </h1>
+            </h3>
 
             <p className="text-sm md:text-md xl:text-lg text-white/65">
               {p.desc}
@@ -143,7 +143,7 @@ function ProjectCard({ p }) {
                 key={t}
                 className="w-fit rounded-lg border border-blue-400/20 bg-blue-500/10 px-3 py-1 text-blue-100/90 backdrop-blur-lg"
               >
-                <h1 className="text-sm md:text-md font-medium">{t}</h1>
+                <span className="text-sm md:text-md font-medium">{t}</span>
               </div>
             ))}
           </div>

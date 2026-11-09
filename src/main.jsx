@@ -1,13 +1,10 @@
-import { hydrateRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import { StrictMode } from 'react'
 import './index.css'
 import App from './App.jsx'
 
-// Use hydrateRoot instead of createRoot so React attaches event listeners
-// to the pre-rendered static HTML without re-rendering the DOM.
-hydrateRoot(
-  document.getElementById('app'),
-  <StrictMode>
-    <App />
-  </StrictMode>
-)
+const container = document.getElementById('app');
+const app = <StrictMode><App /></StrictMode>;
+// Hydrate production's pre-rendered content; Vite development starts empty.
+if (container.querySelector('*')) hydrateRoot(container, app);
+else createRoot(container).render(app);

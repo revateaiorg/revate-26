@@ -121,13 +121,14 @@ const Hero = () => {
               </span>
 
               <span className="font-sans-regular tracking-wide text-white/80">
-                AI-Powered Web Agency
+                Revate AI · AI automation & web development
               </span>
             </div>
           </div>
 
           {/* Heading */}
           <BlurText
+            as="h1"
             text="Run Your Business on Autopilot with AI That Works 24/7"
             delay={50}
             animateBy="words"
@@ -137,7 +138,7 @@ const Hero = () => {
 
           {/* Description */}
           <BlurText
-            text="From answering calls to automating daily tasks, we help your business run smoothly with custom AI systems and websites that convert, helping you save time, cut costs, and grow faster."
+            text="Revate AI builds AI voice receptionists, chatbots, n8n workflow automations, and custom websites to help businesses connect their tools and simplify everyday work."
             delay={55}
             animateBy="words"
             direction="top"

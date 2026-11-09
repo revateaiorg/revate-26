@@ -1,0 +1,29 @@
+# Revate AI
+
+> Revate AI is an AI automation and web development agency based in Chennai, Tamil Nadu, India. We build AI voice receptionists, chatbots, n8n workflow automations, custom websites, and UI/UX designs around business workflows.
+
+Canonical website: https://www.revateai.com/
+
+## Services
+
+- [AI voice receptionists](https://www.revateai.com/#ai-voice-receptionists): Call handling, common questions, appointment booking, and handoffs to a team.
+- [Workflow automation](https://www.revateai.com/#workflow-automation): Connect CRMs, email, forms, and other supported tools through n8n workflows.
+- [AI chatbots](https://www.revateai.com/#ai-chatbots): Business information, lead capture, customer support, and escalation.
+- [Custom web development](https://www.revateai.com/#web-development): Responsive business websites with clear enquiry journeys and technical SEO foundations.
+- [UI/UX design](https://www.revateai.com/#ui-ux-design): User journeys, prototypes, and interface design.
+
+## Business information
+
+- Location: Chennai, Tamil Nadu, India
+- [XML business profile](https://www.revateai.com/business-profile.xml)
+
+- [About the agency](https://www.revateai.com/#about)
+- [Selected projects](https://www.revateai.com/#works)
+- [Project process](https://www.revateai.com/#process)
+- [Frequently asked questions](https://www.revateai.com/#faq)
+- [Contact Revate AI](https://www.revateai.com/#contact)
+- [Book a free strategy call](https://cal.com/pradeep-srinivasan/free-strategy-call)
+- Email: revateai.org@gmail.com
+- Telephone: +91 9962713368
+
+Project scope, integration requirements, price, and timing are agreed after discussing business goals. Search rankings and inclusion in AI answers are not guaranteed. This file is a navigation aid, not a replacement for the website or an indexing requirement.

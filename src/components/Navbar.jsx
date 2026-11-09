@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import Logo from "../assets/logo.png"; // Adjust the path as necessary
 
@@ -8,7 +8,7 @@ const NAV_LINKS = [
   { id: "services", label: "Services" },
   { id: "works", label: "Works" },
   { id: "process", label: "Process" },
-  { id: "faq", label: "FAQs", target: "contact" },
+  { id: "faq", label: "FAQs", target: "faq" },
 ];
 
 const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='1.8' intercept='-0.4'/%3E%3CfeFuncG type='linear' slope='1.8' intercept='-0.4'/%3E%3CfeFuncB type='linear' slope='1.8' intercept='-0.4'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
@@ -40,9 +40,12 @@ const ArrowIcon = ({ className = "h-4 w-4" }) => (
 /*  Rendered in a portal: the navbar uses transform + backdrop-blur,  */
 /*  which would otherwise trap a `fixed` child inside the navbar box. */
 /* ------------------------------------------------------------------ */
+const subscribeToClient = () => () => {};
+
 const MobileMenu = ({ isOpen, onClose, onNavigate }) => {
-  // Portals require a real browser DOM and cannot be pre-rendered.
-  if (import.meta.env.SSR) return null;
+  // Keep the initial browser render identical to the pre-rendered page.
+  const isClient = useSyncExternalStore(subscribeToClient, () => true, () => false);
+  if (!isClient) return null;
 
   const reveal = (i, base = 180) => ({
     transitionDelay: isOpen ? `${base + i * 70}ms` : "0ms",
