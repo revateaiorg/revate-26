@@ -219,7 +219,7 @@ function BuildDiagram({ reduce }) {
       <circle cx="200" cy="146" r="54" fill="#3b82f6" opacity=".16" filter="url(#pd2-blur)" />
       <circle cx="200" cy="146" r="58" fill="none" stroke={LINE} strokeWidth="1.2" />
       <g className="pd-spin pd-rev" style={{ ...cssVars(16), transformBox: 'view-box', transformOrigin: '200px 146px' }}>
-        <circle cx="258" cy="146" r="3.5" fill="#93c5fd" />
+        {/* <circle cx="258" cy="146" r="3.5" fill="#93c5fd" /> */}
       </g>
       <g className="pd-spin" style={{ ...cssVars(26), transformBox: 'view-box', transformOrigin: '200px 146px' }}>
         <circle cx="200" cy="146" r="46" fill="none" stroke="rgba(147,197,253,0.4)" strokeWidth="1.2" strokeDasharray="3 7" />

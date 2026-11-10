@@ -166,6 +166,7 @@ const Contact = () => {
           </div>
         </div>
 
+
         {/* Right: the enquiry form */}
         <div className="relative w-full rounded-3xl border border-white/10 bg-[#080808] p-1.5 sm:p-2">
           {success && (
@@ -207,23 +208,23 @@ const Contact = () => {
                         onBlur={handleBlur}
                       />
                     ) : (
-                    <input
-                      id={`contact-${field.name}`}
-                      type={field.type || "text"}
-                      name={field.name}
-                      placeholder={field.placeholder}
-                      autoComplete={field.autoComplete}
-                      defaultValue={field.defaultValue}
-                      maxLength={field.maxLength}
-                      required
-                      disabled={loading}
-                      aria-invalid={Boolean(errors[field.name] && touched[field.name])}
-                      aria-describedby={errors[field.name] ? `error-${field.name}` : undefined}
-                      className={getInputClassName(field.name)}
-                      onChange={handleInputChange}
-                      onPaste={handlePaste}
-                      onBlur={handleBlur}
-                    />
+                      <input
+                        id={`contact-${field.name}`}
+                        type={field.type || "text"}
+                        name={field.name}
+                        placeholder={field.placeholder}
+                        autoComplete={field.autoComplete}
+                        defaultValue={field.defaultValue}
+                        maxLength={field.maxLength}
+                        required
+                        disabled={loading}
+                        aria-invalid={Boolean(errors[field.name] && touched[field.name])}
+                        aria-describedby={errors[field.name] ? `error-${field.name}` : undefined}
+                        className={getInputClassName(field.name)}
+                        onChange={handleInputChange}
+                        onPaste={handlePaste}
+                        onBlur={handleBlur}
+                      />
                     )}
                     {field.custom === "phone" && errors.country_code && touched.country_code && (
                       <p id="error-country_code" className="text-sm text-red-400">{errors.country_code}</p>
